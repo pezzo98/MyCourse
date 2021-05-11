@@ -5,6 +5,7 @@
     "browserSync.config": {
         "proxy": "localhost:5000",
         "files": [
+            "bin/reload.txt",
             "Views/**/*.cshtml",
             "wwwroot/**/*"
         ]
