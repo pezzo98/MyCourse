@@ -1,45 +1,42 @@
 @model List<CourseViewModel>
-<h1>Catalogo dei corsi</h1>
+<h1>@ViewData["Title"]</h1>
 
-@foreach (CourseViewModel course in Model)
+@foreach(CourseViewModel course in Model)
 {
-    <hr>
-    <div class="row course">
-        <div class="col-md-1">
-            <img src="@course.ImagePath" width="52" height="52">
-        </div>
-        <div class="col-md-5">
-            <h2>@course.Title</h2>
-            <author>di @course.Author</author>
-        </div>
-        <div class="col-md-2 rating" title="@course.Rating">
-            @for (int i = 1; i <= 5; i++)
-            {
-                if (course.Rating >= i)
-                {
-                    <i class="fas fa-star"></i>
-                }
-                else if (course.Rating > i - 1)
-                {
-                    <i class="fas fa-star-half-alt"></i>
-                }
-                else
-                {
-                    <i class="far fa-star"></i>
-                }
-            }
-
-        </div>
-        <div class="col-md-2 price">
-            @course.CurrentPrice
-            @if(course.CurrentPrice.Equals(course.FullPrice))
-            {
-             <br><s>@course.FullPrice</s>   
-            }
-        </div>
-        <div class="col-md-2 d-flex align-items-center">
-            <a class="btn btn-outline-primary" asp-action="Detail" asp-route-id="@course.Id">Dettaglio</a>
-        </div>
+<hr>
+<div class="row course">
+    <div class="col-md-1">
+        <img src="@course.ImagePath" width="52" height="52" alt="@course.Title">
     </div>
-
+    <div class="col-md-5">
+        <h2>@course.Title</h2>
+        <author>di @course.Author</author>
+    </div>
+    <div class="col-md-2 rating" title="@course.Rating">
+        @for(int i = 1; i <= 5; i++)
+        {
+            if (course.Rating >= i)
+            {
+                <i class="fas fa-star"></i>
+            }
+            else if (course.Rating > i - 1)
+            {
+                <i class="fas fa-star-half-alt"></i>
+            }
+            else
+            {
+                <i class="far fa-star"></i>
+            }
+        }
+    </div>
+    <div class="col-md-2 price">
+        @course.CurrentPrice
+        @if(!course.CurrentPrice.Equals(course.FullPrice)) {
+            <br><s>@course.FullPrice</s>
+        }
+    </div>
+    <div class="col-md-2 d-flex align-items-center">
+      <a class="btn btn-outline-primary" asp-action="Detail" asp-route-id="@course.Id">Dettaglio</a>
+    </div>
+</div>
 }
