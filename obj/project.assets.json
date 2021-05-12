@@ -1654,10 +1654,10 @@
           "lib/netcoreapp2.0/_._": {}
         }
       },
-      "Microsoft.Data.Sqlite/2.2.2": {
+      "Microsoft.Data.Sqlite/2.2.6": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Data.Sqlite.Core": "2.2.2",
+          "Microsoft.Data.Sqlite.Core": "2.2.6",
           "SQLitePCLRaw.bundle_green": "1.1.12"
         },
         "compile": {
@@ -1667,7 +1667,7 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-      "Microsoft.Data.Sqlite.Core/2.2.2": {
+      "Microsoft.Data.Sqlite.Core/2.2.6": {
         "type": "package",
         "dependencies": {
           "SQLitePCLRaw.core": "1.1.12"
@@ -6014,28 +6014,28 @@
         "version.txt"
       ]
     },
-    "Microsoft.Data.Sqlite/2.2.2": {
-      "sha512": "U49s5WGW6UWh++pCXr7FNgIDSpM9CX5A3tLObmgxewyacZjSxH2APCTYfa8VJ3oAKjA+otCB6ybOM0CATg/A0g==",
+    "Microsoft.Data.Sqlite/2.2.6": {
+      "sha512": "hjfzgqml2DMKWY+aIuN90piObxWJo4g63kzf0Iy+4op1EKqJNXP5s0/HCLujJkTkJSZD6pvOZXOxdL6h7D/Hbg==",
       "type": "package",
-      "path": "microsoft.data.sqlite/2.2.2",
+      "path": "microsoft.data.sqlite/2.2.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/_._",
-        "microsoft.data.sqlite.2.2.2.nupkg.sha512",
+        "microsoft.data.sqlite.2.2.6.nupkg.sha512",
         "microsoft.data.sqlite.nuspec"
       ]
     },
-    "Microsoft.Data.Sqlite.Core/2.2.2": {
-      "sha512": "Mso8eu0VW4xLKyUPfvs4ndH92ChW11Xsiu6sSNKwvQcrm/lw2aEHZ3KvUqUAzbYCRIaS9LFHwS+Kty0kQfsSLA==",
+    "Microsoft.Data.Sqlite.Core/2.2.6": {
+      "sha512": "JuHLktt4mb5jSTKr+lq4OeuG8tUcCdk/9Gg9kX955+BNcIpSrDqLTcktBOyOIWWUrqBp1zjEbd+/u/9rF57H1w==",
       "type": "package",
-      "path": "microsoft.data.sqlite.core/2.2.2",
+      "path": "microsoft.data.sqlite.core/2.2.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.Data.Sqlite.dll",
         "lib/netstandard2.0/Microsoft.Data.Sqlite.xml",
-        "microsoft.data.sqlite.core.2.2.2.nupkg.sha512",
+        "microsoft.data.sqlite.core.2.2.6.nupkg.sha512",
         "microsoft.data.sqlite.core.nuspec"
       ]
     },
@@ -12445,7 +12445,7 @@
     ".NETCoreApp,Version=v2.2": [
       "Microsoft.AspNetCore.App >= 2.2.0",
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
-      "Microsoft.Data.SQLite >= 2.2.2",
+      "Microsoft.Data.SQLite >= 2.2.6",
       "Microsoft.NETCore.App >= 2.2.0"
     ]
   },
@@ -12505,7 +12505,7 @@
           },
           "Microsoft.Data.SQLite": {
             "target": "Package",
-            "version": "[2.2.2, )"
+            "version": "[2.2.6, )"
           },
           "Microsoft.NETCore.App": {
             "suppressParent": "All",

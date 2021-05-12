@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9qhSPs5Jm2/BckZlDysAhzRDjr3xY+XB01ax/6yrPJmk6sorm4HeI6raE2GiE/rqRY1emZ8iUakhOs46VI7fSA==",
+  "dgSpecHash": "ADK53tYPUAluWJMspIyTjMPgnAIvNvj3mYgeHuKmakK/39xySsPjTfIw1mxI0NKEY7B057ZvGYnxIoUV1hTVwA==",
   "success": true,
   "projectFilePath": "D:\\Informatica\\progetti_personali\\C#\\MyCourse\\MyCourse.csproj",
   "expectedPackageFiles": [
@@ -105,8 +105,8 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.codeanalysis.csharp\\2.8.0\\microsoft.codeanalysis.csharp.2.8.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.codeanalysis.razor\\2.2.0\\microsoft.codeanalysis.razor.2.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
-    "C:\\Users\\UTENTE\\.nuget\\packages\\microsoft.data.sqlite\\2.2.2\\microsoft.data.sqlite.2.2.2.nupkg.sha512",
-    "C:\\Users\\UTENTE\\.nuget\\packages\\microsoft.data.sqlite.core\\2.2.2\\microsoft.data.sqlite.core.2.2.2.nupkg.sha512",
+    "C:\\Users\\UTENTE\\.nuget\\packages\\microsoft.data.sqlite\\2.2.6\\microsoft.data.sqlite.2.2.6.nupkg.sha512",
+    "C:\\Users\\UTENTE\\.nuget\\packages\\microsoft.data.sqlite.core\\2.2.6\\microsoft.data.sqlite.core.2.2.6.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.dotnet.platformabstractions\\2.1.0\\microsoft.dotnet.platformabstractions.2.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.entityframeworkcore\\2.2.0\\microsoft.entityframeworkcore.2.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.entityframeworkcore.abstractions\\2.2.0\\microsoft.entityframeworkcore.abstractions.2.2.0.nupkg.sha512",
