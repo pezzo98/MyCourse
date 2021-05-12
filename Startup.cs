@@ -20,6 +20,10 @@ namespace MyCourse
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTransient<ICourseService, CourseService>();
+            /*
+            AddTransient e AddScoped hanno la stessa funzione ma cambia il ciclo di vita
+            */
+            //services.AddScoped<ICourseService, CourseService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
