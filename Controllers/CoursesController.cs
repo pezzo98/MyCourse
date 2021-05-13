@@ -12,7 +12,6 @@ namespace MyCourse.Controllers
         public CoursesController(ICourseService courseService)
         {
             this.courseService = courseService;
-
         }
         public async Task<IActionResult> Index()
         {
