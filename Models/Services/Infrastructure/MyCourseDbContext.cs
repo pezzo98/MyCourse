@@ -15,8 +15,8 @@ namespace MyCourse.Models.Entities
         {
         }
 
-        public virtual DbSet<Courses> Courses { get; set; }
-        public virtual DbSet<Lessons> Lessons { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<Lesson> Lessons { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,8 +31,15 @@ namespace MyCourse.Models.Entities
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
-            modelBuilder.Entity<Courses>(entity =>
+            modelBuilder.Entity<Course>(entity =>
             {
+                entity.ToTable("Courses");//superfluo se la tabella si chiama come la proprietà che espone il db
+                entity.HasKey(course => course.Id); //superlfuo se la proprietà si chiama id o nome entita con suffisso id
+                //entity.HasKey(course => {course.Id, course.Author}); se ha più chiavi primarie
+
+
+                #region Mapping generato automaticamente dal tool di reverse engineering
+                /*
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Author)
@@ -72,10 +79,14 @@ namespace MyCourse.Models.Entities
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnType("TEXT (100)");
+                */
+                #endregion
             });
 
-            modelBuilder.Entity<Lessons>(entity =>
+            modelBuilder.Entity<Lesson>(entity =>
             {
+                #region Mapping generato automaticamente dal tool di reverse engineering
+                /*
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Description).HasColumnType("TEXT (10000)");
@@ -92,6 +103,8 @@ namespace MyCourse.Models.Entities
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.Lessons)
                     .HasForeignKey(d => d.CourseId);
+                    */
+                #endregion
             });
         }
     }

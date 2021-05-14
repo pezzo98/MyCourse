@@ -1,0 +1,2 @@
+Comando dotnet:
+dotnet ef dbcontext scaffold "Data Source=Data/MyCourse.db" Microsoft.EntityFrameworkCore.Sqlite --output-dir Models/Entities --context-dir Models/Services/Infrastructure --context MyCourseDbContext

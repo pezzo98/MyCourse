@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace MyCourse.Models.Entities
 {
-    public partial class Courses
+    public partial class Course
     {
-        public Courses()
+        public Course()
         {
-            Lessons = new HashSet<Lessons>();
+            Lessons = new HashSet<Lesson>();
         }
 
         public long Id { get; set; }
@@ -22,6 +22,6 @@ namespace MyCourse.Models.Entities
         public string CurrentPriceAmount { get; set; }
         public string CurrentPriceCurrency { get; set; }
 
-        public virtual ICollection<Lessons> Lessons { get; set; }
+        public virtual ICollection<Lesson> Lessons { get; set; }
     }
 }
