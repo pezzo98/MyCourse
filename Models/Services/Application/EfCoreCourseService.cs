@@ -18,43 +18,22 @@ namespace MyCourse.Models.Services.Application
 
         public async Task<CourseDetailViewModel> GetCourseAsync(int id)
         {
-            CourseDetailViewModel viewModel = await dbContext.Courses
+            IQueryable<CourseDetailViewModel> queryLinq = dbContext.Courses
+                .Include(course => course.Lessons)
                 .Where(course => course.Id == id)
-                .Select(course => new CourseDetailViewModel
-                {
-                    Id = course.Id,
-                    Title = course.Title,
-                    Description = course.Description,
-                    Author = course.Author,
-                    ImagePath = course.ImagePath,
-                    Rating = course.Rating,
-                    CurrentPrice = course.CurrentPrice,
-                    FullPrice = course.FullPrice,
-                    Lessons = course.Lessons.Select(lesson => new LessonViewModel
-                    {
-                        Id = lesson.Id,
-                        Title = lesson.Title,
-                        Description = lesson.Description,
-                        Duration = lesson.Duration
-                    }).ToList()
-                })
-                .SingleAsync(); // Restituisce il primo elemento dell'elenco, ma se ne contiene 0 o >1 --> eccezzione
+                .Select(course => CourseDetailViewModel.FromEntity(course)); //Usando metodi statici come FromEntity, la query potrebbe essere inefficiente. Mantenere il mapping nella lambda oppure usare un extension method personalizzato
+
+            CourseDetailViewModel viewModel = await queryLinq.SingleAsync();
+
             return viewModel;
         }
 
         public async Task<List<CourseViewModel>> GetCoursesAsync()
         {
-            List<CourseViewModel> courses = await dbContext.Courses.Select(course =>
-            new CourseViewModel
-            {
-                Id = course.Id,
-                Title = course.Title,
-                ImagePath = course.ImagePath,
-                Author = course.Author,
-                Rating = course.Rating,
-                CurrentPrice = course.CurrentPrice,
-                FullPrice = course.FullPrice
-            }).ToListAsync();
+            IQueryable<CourseViewModel> queryLinq = dbContext.Courses
+                .Select(course => CourseViewModel.FromEntity(course));
+
+            List<CourseViewModel> courses = await queryLinq.ToListAsync();
 
             return courses;
         }
