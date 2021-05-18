@@ -1,22 +1,26 @@
-# Eseguire gli script C#
-Le sottodirectory che trovi qui (es. lambda), contengono degli script C#. Non si tratta di veri progetti, ma di semplici file .csx che possono comunque essere eseguiti e debuggati da Visual Studio Code installando il tool `dotnet-script` con questo comando.
+# MyCourse
+In questo repository si trova il codice del progetto `MyCourse`, che viene presentato nel corso `ASP.NET Core per tutti` su Udemy.
 
-```
-dotnet tool install -g dotnet-script
-```
+[https://www.udemy.com/aspnetcore-per-tutti/](https://www.udemy.com/aspnetcore-per-tutti/)
 
-Questo comando va eseguito solo la prima volta, perché verrà installato a livello globale nel tuo sistema e perciò sarà disponibile ovunque da riga di comando.
-Per iniziare a lavorare con gli script, portati in una directory vuota e digita:
+## Panoramica
+Il progetto è un'applicazione ASP.NET Core 2 dimostrativa per la pubblicazione e fruizione di corsi on-line. L'applicazione è pubblicata all'indirizzo:
+[https://my-course.azurewebsites.net](https://my-course.azurewebsites.net)
 
-```
-dotnet script init
-```
+![Screenshot dell'applicazione MyCourse](docs/images/my-course.png)
 
-E poi apri questa directory in Visual Studio Code digitando:
 
-```
-code .
-```
+## Ottenere il codice del progetto
+Per chi non è abituato a usare GitHub, ecco spiegate le due opzioni per ottenere il codice di questo progetto:
 
-Oppure apri la directory al solito modo, dall'interfaccia grafica di Visual Studio Code.
-Ora sei pronto per sperimentare con C#! Avrai il supporto del debugger e dell'IntelliSense!
+ 1. Per prima cosa [installare GIT](https://git-scm.com/book/it/v1/Per-Iniziare-Installare-Git#Installare-su-Linux) sul proprio PC o Mac. Poi creare una nuova cartella vuota, aprire il prompt dei comandi (anche chiamato _Terminale_) e posizionarsi nella directory appena creata digitando:
+    ```
+    cd percorsoDirectoryCreata
+    ```
+    a questo punto clonare il repository GIT digitando il comando:
+    ```
+    git clone https://github.com/ItalyDotNet/MyCourse.git .
+    ```
+ 2. La seconda alternativa consiste semplicemente nello scaricare un file ZIP del progetto cliccando il bottone verde "Clone or download" che si trova in questa pagina e poi "Download ZIP".
+    
+    Prima di scaricare lo ZIP, selezionare il ramo che si intende ottenere cliccando il bottone grigio "Branch: master" che si trova in questa pagina.
