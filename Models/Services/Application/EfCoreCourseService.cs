@@ -16,9 +16,30 @@ namespace MyCourse.Models.Services.Application
             this.dbContext = dbContext;
         }
 
-        public Task<CourseDetailViewModel> GetCourseAsync(int id)
+        public async Task<CourseDetailViewModel> GetCourseAsync(int id)
         {
-            throw new System.NotImplementedException();
+            CourseDetailViewModel viewModel = await dbContext.Courses
+                .Where(course => course.Id == id)
+                .Select(course => new CourseDetailViewModel
+                {
+                    Id = course.Id,
+                    Title = course.Title,
+                    Description = course.Description,
+                    Author = course.Author,
+                    ImagePath = course.ImagePath,
+                    Rating = course.Rating,
+                    CurrentPrice = course.CurrentPrice,
+                    FullPrice = course.FullPrice,
+                    Lessons = course.Lessons.Select(lesson => new LessonViewModel
+                    {
+                        Id = lesson.Id,
+                        Title = lesson.Title,
+                        Description = lesson.Description,
+                        Duration = lesson.Duration
+                    }).ToList()
+                })
+                .SingleAsync(); // Restituisce il primo elemento dell'elenco, ma se ne contiene 0 o >1 --> eccezzione
+            return viewModel;
         }
 
         public async Task<List<CourseViewModel>> GetCoursesAsync()
