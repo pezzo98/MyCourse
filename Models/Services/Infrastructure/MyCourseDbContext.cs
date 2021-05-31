@@ -7,6 +7,7 @@ namespace MyCourse.Models.Services.Infrastructure
 {
     public partial class MyCourseDbContext : DbContext
     {
+
         public MyCourseDbContext(DbContextOptions<MyCourseDbContext> options)
             : base(options)
         {
@@ -17,7 +18,7 @@ namespace MyCourse.Models.Services.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
+            modelBuilder.HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
 
             modelBuilder.Entity<Course>(entity =>
             {
@@ -26,16 +27,14 @@ namespace MyCourse.Models.Services.Infrastructure
                 //entity.HasKey(course => new { course.Id, course.Author }); //Per chiavi primarie composite (è importante rispettare l'ordine dei campi)
 
                 //Mapping per gli owned types
-                entity.OwnsOne(course => course.CurrentPrice, builder =>
-                {
+                entity.OwnsOne(course => course.CurrentPrice, builder => {
                     builder.Property(money => money.Currency)
                     .HasConversion<string>()
                     .HasColumnName("CurrentPrice_Currency"); //Superfluo perché le nostre colonne seguono già la convenzione di nomi
                     builder.Property(money => money.Amount).HasColumnName("CurrentPrice_Amount"); //Superfluo perché le nostre colonne seguono già la convenzione di nomi
                 });
 
-                entity.OwnsOne(course => course.FullPrice, builder =>
-                {
+                entity.OwnsOne(course => course.FullPrice, builder => {
                     builder.Property(money => money.Currency).HasConversion<string>();
                 });
 
@@ -85,12 +84,15 @@ namespace MyCourse.Models.Services.Infrastructure
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnType("TEXT (100)");
-                */
+                    */
                 #endregion
             });
 
             modelBuilder.Entity<Lesson>(entity =>
             {
+                //Nessun mapping necessario qui, perché stiamo rispettando le convenzioni di nomi
+
+
                 #region Mapping generato automaticamente dal tool di reverse engineering
                 /*
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -109,7 +111,7 @@ namespace MyCourse.Models.Services.Infrastructure
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.Lessons)
                     .HasForeignKey(d => d.CourseId);
-                    */
+                */
                 #endregion
             });
         }

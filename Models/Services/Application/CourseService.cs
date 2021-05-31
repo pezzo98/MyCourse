@@ -47,10 +47,8 @@ namespace MyCourse.Models.Services.Application
                 Lessons = new List<LessonViewModel>()
             };
 
-            for (var i = 1; i <= 5; i++)
-            {
-                var lesson = new LessonViewModel
-                {
+            for (var i = 1; i <= 5; i++) {
+                var lesson = new LessonViewModel {
                     Title = $"Lezione {i}",
                     Duration = TimeSpan.FromSeconds(rand.Next(40, 90))
                 };
