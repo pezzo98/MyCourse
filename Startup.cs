@@ -30,8 +30,7 @@ namespace MyCourse
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddResponseCaching();
-
-            services.AddMvc(options => 
+            services.AddMvc(options =>
             {
                 var homeProfile = new CacheProfile();
                 //homeProfile.Duration = Configuration.GetValue<int>("ResponseCache:Home:Duration");
@@ -39,14 +38,15 @@ namespace MyCourse
                 //homeProfile.VaryByQueryKeys = new string[] { "page" };
                 Configuration.Bind("ResponseCache:Home", homeProfile);
                 options.CacheProfiles.Add("Home", homeProfile);
-                
+
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTransient<ICourseService, AdoNetCourseService>();
             //services.AddTransient<ICourseService, EfCoreCourseService>();
             services.AddTransient<IDatabaseAccessor, SqliteDatabaseAccessor>();
             services.AddTransient<ICachedCourseService, MemoryCacheCourseService>();
 
-            services.AddDbContextPool<MyCourseDbContext>(optionsBuilder => {
+            services.AddDbContextPool<MyCourseDbContext>(optionsBuilder =>
+            {
                 string connectionString = Configuration.GetSection("ConnectionStrings").GetValue<string>("Default");
                 optionsBuilder.UseSqlite(connectionString);
             });
@@ -55,6 +55,8 @@ namespace MyCourse
             services.Configure<CoursesOptions>(Configuration.GetSection("Courses"));
             services.Configure<ConnectionStringsOptions>(Configuration.GetSection("ConnectionStrings"));
             services.Configure<MemoryCacheOptions>(Configuration.GetSection("MemoryCache"));
+            //services.AddScoped<MyCourseDbContext>();
+            services.AddDbContext<MyCourseDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,12 +78,12 @@ namespace MyCourse
             {
                 app.UseExceptionHandler("/Error");
             }
-            
+
             app.UseStaticFiles();
 
             app.UseResponseCaching();
             //app.UseMvcWithDefaultRoute();
-            app.UseMvc(routeBuilder => 
+            app.UseMvc(routeBuilder =>
             {
                 // Esempio di percorso conforme al template route: /courses/detail/5
                 routeBuilder.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");

@@ -27,21 +27,16 @@ namespace MyCourse.Models.Services.Application
         public async Task<CourseDetailViewModel> GetCourseAsync(int id)
         {
             IQueryable<CourseDetailViewModel> queryLinq = dbContext.Courses
-                .AsNoTracking()
                 .Include(course => course.Lessons)
                 .Where(course => course.Id == id)
                 .Select(course => CourseDetailViewModel.FromEntity(course)); //Usando metodi statici come FromEntity, la query potrebbe essere inefficiente. Mantenere il mapping nella lambda oppure usare un extension method personalizzato
-
             CourseDetailViewModel viewModel = await queryLinq.FirstOrDefaultAsync();
-            if (viewModel == null) 
+            if (viewModel == null)
             {
                 logger.LogWarning("Course {id} not found", id);
                 throw new CourseNotFoundException(id);
             }
-            //.FirstOrDefaultAsync(); //Restituisce null se l'elenco è vuoto e non solleva mai un'eccezione
-            //.SingleOrDefaultAsync(); //Tollera il fatto che l'elenco sia vuoto e in quel caso restituisce null, oppure se l'elenco contiene più di 1 elemento, solleva un'eccezione
-            //.FirstAsync(); //Restituisce il primo elemento, ma se l'elenco è vuoto solleva un'eccezione
-            //.SingleAsync(); //Restituisce il primo elemento, ma se l'elenco è vuoto o contiene più di un elemento, solleva un'eccezione
+            CourseDetailViewModel viewModel = await queryLinq.SingleAsync();
 
             return viewModel;
         }
@@ -50,7 +45,7 @@ namespace MyCourse.Models.Services.Application
         {
             IQueryable<CourseViewModel> queryLinq = dbContext.Courses
                 .AsNoTracking()
-                .Select(course => CourseViewModel.FromEntity(course)); //Usando metodi statici come FromEntity, la query potrebbe essere inefficiente. Mantenere il mapping nella lambda oppure usare un extension method personalizzato
+                .Select(course => CourseViewModel.FromEntity(course));
 
             List<CourseViewModel> courses = await queryLinq.ToListAsync(); //La query al database viene inviata qui, quando manifestiamo l'intenzione di voler leggere i risultati
 
