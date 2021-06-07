@@ -9,7 +9,7 @@ namespace MyCourse.Controllers
     public class CoursesController : Controller
     {
         private readonly ICourseService courseService;
-        public CoursesController(ICachedCourseService courseService)
+        public CoursesController(ICourseService courseService)
         {
             this.courseService = courseService;
         }

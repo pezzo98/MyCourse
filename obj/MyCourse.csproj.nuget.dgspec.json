@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pietr\\source\\repos\\MyCourse\\MyCourse.csproj": {}
+    "D:\\Informatica\\progetti_personali\\C#\\MyCourse\\MyCourse.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pietr\\source\\repos\\MyCourse\\MyCourse.csproj": {
+    "D:\\Informatica\\progetti_personali\\C#\\MyCourse\\MyCourse.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pietr\\source\\repos\\MyCourse\\MyCourse.csproj",
+        "projectUniqueName": "D:\\Informatica\\progetti_personali\\C#\\MyCourse\\MyCourse.csproj",
         "projectName": "MyCourse",
-        "projectPath": "C:\\Users\\pietr\\source\\repos\\MyCourse\\MyCourse.csproj",
-        "packagesPath": "C:\\Users\\pietr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pietr\\source\\repos\\MyCourse\\obj\\",
+        "projectPath": "D:\\Informatica\\progetti_personali\\C#\\MyCourse\\MyCourse.csproj",
+        "packagesPath": "C:\\Users\\UTENTE\\.nuget\\packages\\",
+        "outputPath": "D:\\Informatica\\progetti_personali\\C#\\MyCourse\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\pietr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\UTENTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +25,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "\\\\10.0.2.9\\NuGet": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

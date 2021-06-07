@@ -1,13 +1,10 @@
 {
-    "emmet.includeLanguages": {
-        "aspnetcorerazor": "html"
-    },
+    "emmet.includeLanguages": { "aspnetcorerazor": "html"},
     "browserSync.config": {
         "proxy": "localhost:5000",
-        "files": [
-            "bin/reload.txt",
-            "Views/**/*.cshtml",
-            "wwwroot/**/*"
-        ]
-    }
+        "files": ["bin/reload.txt", "Views/**/*.cshtml", "wwwroot/**/*"]
+    },
+    "fontAwesomeAutocomplete.patterns": ["**/*.cshtml"],
+    "fontAwesomeAutocomplete.triggerWord": "f",
+    "gitlens.currentLine.enabled": false
 }
