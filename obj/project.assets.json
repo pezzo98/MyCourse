@@ -1654,10 +1654,10 @@
           "lib/netcoreapp2.0/_._": {}
         }
       },
-      "Microsoft.Data.Sqlite/2.2.6": {
+      "Microsoft.Data.Sqlite/2.2.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Data.Sqlite.Core": "2.2.6",
+          "Microsoft.Data.Sqlite.Core": "2.2.2",
           "SQLitePCLRaw.bundle_green": "1.1.12"
         },
         "compile": {
@@ -1667,7 +1667,7 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-      "Microsoft.Data.Sqlite.Core/2.2.6": {
+      "Microsoft.Data.Sqlite.Core/2.2.4": {
         "type": "package",
         "dependencies": {
           "SQLitePCLRaw.core": "1.1.12"
@@ -1731,11 +1731,11 @@
       "Microsoft.EntityFrameworkCore.Analyzers/2.2.4": {
         "type": "package"
       },
-      "Microsoft.EntityFrameworkCore.Design/2.2.4": {
+      "Microsoft.EntityFrameworkCore.Design/2.2.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.5.0",
-          "Microsoft.EntityFrameworkCore.Relational": "2.2.4"
+          "Microsoft.EntityFrameworkCore.Relational": "2.2.0"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.dll": {}
@@ -5919,6 +5919,7 @@
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.rtf",
         "analyzers/dotnet/cs/Microsoft.CodeAnalysis.Analyzers.dll",
         "analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.Analyzers.dll",
@@ -6041,28 +6042,28 @@
         "version.txt"
       ]
     },
-    "Microsoft.Data.Sqlite/2.2.6": {
-      "sha512": "hjfzgqml2DMKWY+aIuN90piObxWJo4g63kzf0Iy+4op1EKqJNXP5s0/HCLujJkTkJSZD6pvOZXOxdL6h7D/Hbg==",
+    "Microsoft.Data.Sqlite/2.2.2": {
+      "sha512": "U49s5WGW6UWh++pCXr7FNgIDSpM9CX5A3tLObmgxewyacZjSxH2APCTYfa8VJ3oAKjA+otCB6ybOM0CATg/A0g==",
       "type": "package",
-      "path": "microsoft.data.sqlite/2.2.6",
+      "path": "microsoft.data.sqlite/2.2.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/_._",
-        "microsoft.data.sqlite.2.2.6.nupkg.sha512",
+        "microsoft.data.sqlite.2.2.2.nupkg.sha512",
         "microsoft.data.sqlite.nuspec"
       ]
     },
-    "Microsoft.Data.Sqlite.Core/2.2.6": {
-      "sha512": "JuHLktt4mb5jSTKr+lq4OeuG8tUcCdk/9Gg9kX955+BNcIpSrDqLTcktBOyOIWWUrqBp1zjEbd+/u/9rF57H1w==",
+    "Microsoft.Data.Sqlite.Core/2.2.4": {
+      "sha512": "69DJj8bUJpXPfWpmJ/Sh165GWjLjlL516l0GnJDImabfR+leXb61HaQF97THWvyx5yY7MvpO94QW5nyiXMVOAA==",
       "type": "package",
-      "path": "microsoft.data.sqlite.core/2.2.6",
+      "path": "microsoft.data.sqlite.core/2.2.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.Data.Sqlite.dll",
         "lib/netstandard2.0/Microsoft.Data.Sqlite.xml",
-        "microsoft.data.sqlite.core.2.2.6.nupkg.sha512",
+        "microsoft.data.sqlite.core.2.2.4.nupkg.sha512",
         "microsoft.data.sqlite.core.nuspec"
       ]
     },
@@ -6119,10 +6120,10 @@
         "microsoft.entityframeworkcore.analyzers.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Design/2.2.4": {
-      "sha512": "4SfnD7wYxr+OzcPOZYlzPtKtL1cdXk+a8g4bKc8QcgaGhpvVOTK5ROTZaOe10tmvFXFEJVZSGtXpFAbgiDFtjg==",
+    "Microsoft.EntityFrameworkCore.Design/2.2.0": {
+      "sha512": "mcsUEzg1bWvPgj/isz7aabDy41x+x8WBTmSF+JFsDGe3K5ZElWT2FSr3LLmkXk/5BLWJ3f9SDe0YR55u3ZgHrw==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.design/2.2.4",
+      "path": "microsoft.entityframeworkcore.design/2.2.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6132,7 +6133,7 @@
         "lib/net461/Microsoft.EntityFrameworkCore.Design.xml",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.dll",
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.xml",
-        "microsoft.entityframeworkcore.design.2.2.4.nupkg.sha512",
+        "microsoft.entityframeworkcore.design.2.2.0.nupkg.sha512",
         "microsoft.entityframeworkcore.design.nuspec"
       ]
     },
@@ -7870,6 +7871,7 @@
       "path": "runtime.win-arm64.runtime.native.system.data.sqlclient.sni/4.4.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
@@ -7885,6 +7887,7 @@
       "path": "runtime.win-x64.runtime.native.system.data.sqlclient.sni/4.4.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
@@ -7900,6 +7903,7 @@
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
@@ -8296,11 +8300,12 @@
       ]
     },
     "System.Collections.NonGeneric/4.3.0": {
-      "sha512": "LE/oChpRvkSi3U25u0KnJcI44JeDZ1QJCyN4qFDx2uusEypdqR24w7lKYw21eYe5esuCBuc862wRmpF63Yy1KQ==",
+      "sha512": "prtjIEMhGUnQq6RnPEYLpFt8AtLbp9yq2zxOSrY7KJJZrw25Fi97IzBqY7iqssbM61Ek5b8f3MG/sG1N2sN5KA==",
       "type": "package",
       "path": "system.collections.nongeneric/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -8339,6 +8344,7 @@
       "path": "system.collections.specialized/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -8578,6 +8584,7 @@
       "path": "system.diagnostics.contracts/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -8730,6 +8737,7 @@
       "path": "system.diagnostics.fileversioninfo/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -8771,6 +8779,7 @@
       "path": "system.diagnostics.stacktrace/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -8957,6 +8966,7 @@
       "path": "system.dynamic.runtime/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -9628,6 +9638,7 @@
       "path": "system.linq.queryable/4.0.1",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/monoandroid10/_._",
@@ -10007,6 +10018,7 @@
       "path": "system.private.datacontractserialization/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.3/System.Private.DataContractSerialization.dll",
@@ -10896,6 +10908,7 @@
       "path": "system.runtime.serialization.primitives/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -10968,6 +10981,7 @@
       "path": "system.runtime.serialization.xml/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -11081,6 +11095,7 @@
       "path": "system.security.claims/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -12060,6 +12075,7 @@
       "path": "system.threading.tasks.parallel/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -12116,6 +12132,7 @@
       "path": "system.threading.thread/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -12155,6 +12172,7 @@
       "path": "system.valuetuple/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/.xml",
@@ -12313,6 +12331,7 @@
       "path": "system.xml.xmldocument/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -12351,6 +12370,7 @@
       "path": "system.xml.xmlserializer/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -12421,6 +12441,7 @@
       "path": "system.xml.xpath/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -12497,30 +12518,25 @@
     ".NETCoreApp,Version=v2.2": [
       "Microsoft.AspNetCore.App >= 2.2.0",
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
-      "Microsoft.Data.SQLite >= 2.2.6",
-      "Microsoft.EntityFrameworkCore.Design >= 2.2.4",
+      "Microsoft.Data.SQLite >= 2.2.2",
       "Microsoft.EntityFrameworkCore.Sqlite >= 2.2.4",
       "Microsoft.NETCore.App >= 2.2.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\UTENTE\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\pietr\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Informatica\\progetti_personali\\C#\\MyCourse\\MyCourse.csproj",
+      "projectUniqueName": "C:\\Users\\pietr\\source\\repos\\MyCourse\\MyCourse.csproj",
       "projectName": "MyCourse",
-      "projectPath": "D:\\Informatica\\progetti_personali\\C#\\MyCourse\\MyCourse.csproj",
-      "packagesPath": "C:\\Users\\UTENTE\\.nuget\\packages\\",
-      "outputPath": "D:\\Informatica\\progetti_personali\\C#\\MyCourse\\obj\\",
+      "projectPath": "C:\\Users\\pietr\\source\\repos\\MyCourse\\MyCourse.csproj",
+      "packagesPath": "C:\\Users\\pietr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\pietr\\source\\repos\\MyCourse\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\UTENTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\pietr\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12528,6 +12544,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "\\\\10.0.2.9\\NuGet": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -12559,11 +12576,7 @@
           },
           "Microsoft.Data.SQLite": {
             "target": "Package",
-            "version": "[2.2.6, )"
-          },
-          "Microsoft.EntityFrameworkCore.Design": {
-            "target": "Package",
-            "version": "[2.2.4, )"
+            "version": "[2.2.2, )"
           },
           "Microsoft.EntityFrameworkCore.Sqlite": {
             "target": "Package",
@@ -12586,7 +12599,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }

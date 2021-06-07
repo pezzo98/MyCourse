@@ -10,6 +10,10 @@ namespace MyCourse.Models.ViewModels
 {
     public class CourseDetailViewModel : CourseViewModel
     {
+        public CourseDetailViewModel()
+        {
+            Lessons = new List<LessonViewModel>();
+        }
         public string Description { get; set; }
         public List<LessonViewModel> Lessons { get; set; }
 
@@ -43,8 +47,7 @@ namespace MyCourse.Models.ViewModels
 
         public static new CourseDetailViewModel FromEntity(Course course)
         {
-            return new CourseDetailViewModel
-            {
+            return new CourseDetailViewModel {
                 Id = course.Id,
                 Title = course.Title,
                 Description = course.Description,
@@ -54,8 +57,8 @@ namespace MyCourse.Models.ViewModels
                 CurrentPrice = course.CurrentPrice,
                 FullPrice = course.FullPrice,
                 Lessons = course.Lessons
-                    .Select(lesson => LessonViewModel.FromEntity(lesson))
-                    .ToList()
+                                    .Select(lesson => LessonViewModel.FromEntity(lesson))
+                                    .ToList()
             };
         }
     }

@@ -7,6 +7,10 @@ namespace MyCourse.Models.Services.Infrastructure
 {
     public partial class MyCourseDbContext : DbContext
     {
+        public MyCourseDbContext()
+        {
+        }
+
         public MyCourseDbContext(DbContextOptions<MyCourseDbContext> options)
             : base(options)
         {
@@ -15,9 +19,18 @@ namespace MyCourse.Models.Services.Infrastructure
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlite("Data Source=Data/MyCourse.db");
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
+            modelBuilder.HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
 
             modelBuilder.Entity<Course>(entity =>
             {
@@ -85,12 +98,15 @@ namespace MyCourse.Models.Services.Infrastructure
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnType("TEXT (100)");
-                */
+                    */
                 #endregion
             });
 
             modelBuilder.Entity<Lesson>(entity =>
             {
+                //Nessun mapping necessario qui, perché stiamo rispettando le convenzioni di nomi
+
+
                 #region Mapping generato automaticamente dal tool di reverse engineering
                 /*
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -109,7 +125,7 @@ namespace MyCourse.Models.Services.Infrastructure
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.Lessons)
                     .HasForeignKey(d => d.CourseId);
-                    */
+                */
                 #endregion
             });
         }
