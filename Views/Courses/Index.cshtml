@@ -1,7 +1,29 @@
-@model List<CourseViewModel>
-<h1>@ViewData["Title"]</h1>
+@model CourseListViewModel
+<div class="row">
+    <div class="col-md-8">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+    <div class="col-md-4 d-flex align-items-center">
+        <form asp-controller="Courses" asp-action="Index" method="get">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Cerca..." aria-label="Cerca..." aria-describedby="search-button" value="@Model.Input.Search">
+                <div class="input-group-append">
+                    <button class="input-group-text" id="search-button"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
-@foreach(CourseViewModel course in Model)
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-5"><a asp-route-orderby="Title" asp-route-ascending="@(Model.Input.OrderBy == "Title" ? !Model.Input.Ascending : true)" asp-route-search="@Model.Input.Search">Titolo @if(Model.Input.OrderBy == "Title") { <i class="fas fa-caret-@(Model.Input.Ascending ? "up" : "down")"></i> }</a></div>
+    <div class="col-md-2"><a asp-route-orderby="Rating" asp-route-ascending="@(Model.Input.OrderBy == "Rating" ? !Model.Input.Ascending : true)" asp-route-search="@Model.Input.Search">Valutazione @if(Model.Input.OrderBy == "Rating") { <i class="fas fa-caret-@(Model.Input.Ascending ? "up" : "down")"></i> }</a></div>
+    <div class="col-md-2"><a asp-route-orderby="CurrentPrice" asp-route-ascending="@(Model.Input.OrderBy == "CurrentPrice" ? !Model.Input.Ascending : true)" asp-route-search="@Model.Input.Search">Prezzo @if(Model.Input.OrderBy == "CurrentPrice") { <i class="fas fa-caret-@(Model.Input.Ascending ? "up" : "down")"></i> }</a></div>
+    <div class="col-md-2"></div>
+</div>
+
+@foreach(CourseViewModel course in Model.Courses.Results)
 {
 <hr>
 <div class="row course">
@@ -36,7 +58,43 @@
         }
     </div>
     <div class="col-md-2 d-flex align-items-center">
-      <a class="btn btn-outline-primary" asp-action="Detail" asp-route-id="@course.Id">Dettaglio</a>
+      <a class="btn btn-outline-primary" asp-controller="Courses" asp-action="Detail" asp-route-id="@course.Id">Dettaglio</a>
     </div>
 </div>
 }
+
+@{
+    int totalPages = (int) Math.Ceiling(Model.Courses.TotalCount / (decimal) Model.Input.Limit);
+    int currentPage = Model.Input.Page;
+}
+<nav aria-label="Paginazione">
+    <ul class="pagination d-flex justify-content-center mt-3">
+        @if(currentPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-route-page="@(currentPage-1)" asp-route-search="@Model.Input.Search" asp-route-orderby="@Model.Input.OrderBy" asp-route-ascending="@Model.Input.Ascending"><i class="fas fa-angle-left"></i></a>
+            </li>   
+        }
+        @for(int p = Math.Max(1, currentPage-4); p <= Math.Min(totalPages, currentPage+4); p++)
+        {
+            if (p == currentPage)
+            {
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" asp-route-page="@p" asp-route-search="@Model.Input.Search" asp-route-orderby="@Model.Input.OrderBy" asp-route-ascending="@Model.Input.Ascending">@p <span class="sr-only">(current)</span></a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-route-page="@p" asp-route-search="@Model.Input.Search" asp-route-orderby="@Model.Input.OrderBy" asp-route-ascending="@Model.Input.Ascending">@p</a>
+                </li>
+            }
+        }
+        @if(currentPage < totalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-route-page="@(currentPage+1)" asp-route-search="@Model.Input.Search" asp-route-orderby="@Model.Input.OrderBy" asp-route-ascending="@Model.Input.Ascending"><i class="fas fa-angle-right"></i></a>
+            </li>   
+        }
+    </ul>
+</nav>
