@@ -3,59 +3,22 @@
     <h1 class="display-4">@ViewData["Title"]</h1>
     <p class="lead">Impara in maniera facile e divertente con i nostri corsi online!<br>
 Scegli da un vasto catalogo sempre a tua disposizione.</p>
-    <hr class="my-4">
     <p><a asp-controller="Courses" asp-action="Index" class="btn btn-primary">Sfoglia il catalogo dei corsi <i class="fas fa-angle-right"></i></a></p>
 </div>
 
 <section>
     <h2>Aggiunti di recente</h2>
-    @foreach (var course in Model.MostRecentCourses)
+    @foreach (CourseViewModel course in Model.MostRecentCourses)
     {
-        <hr>
-<div class="row course">
-    <div class="col-md-1">
-        <img src="@course.ImagePath" width="52" height="52" alt="@course.Title">
-    </div>
-    <div class="col-md-5">
-        <h2>@course.Title</h2>
-        <author>di @course.Author</author>
-    </div>
-    <div class="col-md-2 rating" title="@course.Rating">
-       <rating value="@course.Rating"></rating>
-    </div>
-    <div class="col-md-2 price">
-        <price current-price="@Model.CurrentPrice" full-price="@Model.FullPrice"></price>
-    </div>
-    <div class="col-md-2 d-flex align-items-center">
-      <a class="btn btn-outline-primary" asp-controller="Courses" asp-action="Detail" asp-route-id="@course.Id">Dettaglio</a>
-    </div>
-</div>
+        <partial name="Courses/_CourseLine" model="@course"></partial>
     }
 </section>
 
 
 <section>
     <h2>I migliori di sempre</h2>
-    @foreach (var course in Model.BestRatingCourses)
+    @foreach (CourseViewModel course in Model.BestRatingCourses)
     {
-        <hr>
-<div class="row course">
-    <div class="col-md-1">
-        <img src="@course.ImagePath" width="52" height="52" alt="@course.Title">
-    </div>
-    <div class="col-md-5">
-        <h2>@course.Title</h2>
-        <author>di @course.Author</author>
-    </div>
-    <div class="col-md-2 rating" title="@course.Rating">
-        <rating value="@course.Rating"></rating>
-    </div>
-    <div class="col-md-2 price">
-        <price current-price="@Model.CurrentPrice" full-price="@Model.FullPrice"></price>
-    </div>
-    <div class="col-md-2 d-flex align-items-center">
-      <a class="btn btn-outline-primary" asp-controller="Courses" asp-action="Detail" asp-route-id="@course.Id">Dettaglio</a>
-    </div>
-</div>
+        <partial name="Courses/_CourseLine" model="@course"></partial>
     }
 </section>
