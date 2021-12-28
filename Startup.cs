@@ -107,6 +107,7 @@ namespace MyCourse
             });*/
 
             //EndpointRoutingMiddleware
+            app.UseHttpsRedirection();
             app.UseRouting();
 
             app.UseResponseCaching();
