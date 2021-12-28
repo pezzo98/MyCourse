@@ -10,7 +10,9 @@ namespace MyCourse.Customizations.TagHelpers
         public string OrderBy { get; set; }
         public CourseListInputModel Input { get; set; }
 
-        public OrderLinkTagHelper(IHtmlGenerator generator) : base(generator) { }
+        public OrderLinkTagHelper(IHtmlGenerator generator) : base(generator)
+        {
+        }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

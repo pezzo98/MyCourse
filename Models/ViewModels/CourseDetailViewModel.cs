@@ -47,7 +47,8 @@ namespace MyCourse.Models.ViewModels
 
         public static new CourseDetailViewModel FromEntity(Course course)
         {
-            return new CourseDetailViewModel {
+            return new CourseDetailViewModel
+            {
                 Id = course.Id,
                 Title = course.Title,
                 Description = course.Description,
@@ -56,9 +57,7 @@ namespace MyCourse.Models.ViewModels
                 Rating = course.Rating,
                 CurrentPrice = course.CurrentPrice,
                 FullPrice = course.FullPrice,
-                Lessons = course.Lessons
-                                    .Select(lesson => LessonViewModel.FromEntity(lesson))
-                                    .ToList()
+                Lessons = course.Lessons.Select(lesson => LessonViewModel.FromEntity(lesson)).ToList()
             };
         }
     }

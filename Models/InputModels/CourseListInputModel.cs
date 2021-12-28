@@ -29,7 +29,7 @@ namespace MyCourse.Models.InputModels
         public int Page { get; }
         public string OrderBy { get; }
         public bool Ascending { get; }
-        
+
         public int Limit { get; }
         public int Offset { get; }
     }

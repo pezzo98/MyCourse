@@ -15,14 +15,15 @@ namespace MyCourse.Models.ValueTypes
         }
         private decimal amount = 0;
         public decimal Amount
-        { 
+        {
             get
             {
                 return amount;
             }
             set
             {
-                if (value < 0) {
+                if (value < 0)
+                {
                     throw new InvalidOperationException("The amount cannot be negative");
                 }
                 amount = value;
@@ -45,10 +46,10 @@ namespace MyCourse.Models.ValueTypes
         {
             return HashCode.Combine(Amount, Currency);
         }
-        
+
         public override string ToString()
         {
-            return $"{Currency} {Amount:#.00}";
+            return $"{Currency} {Amount:0.00}";
         }
     }
 }

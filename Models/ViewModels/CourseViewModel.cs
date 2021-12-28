@@ -18,7 +18,8 @@ namespace MyCourse.Models.ViewModels
 
         public static CourseViewModel FromDataRow(DataRow courseRow)
         {
-            var courseViewModel = new CourseViewModel {
+            var courseViewModel = new CourseViewModel
+            {
                 Title = Convert.ToString(courseRow["Title"]),
                 ImagePath = Convert.ToString(courseRow["ImagePath"]),
                 Author = Convert.ToString(courseRow["Author"]),
@@ -38,7 +39,8 @@ namespace MyCourse.Models.ViewModels
 
         public static CourseViewModel FromEntity(Course course)
         {
-            return new CourseViewModel {
+            return new CourseViewModel
+            {
                 Id = course.Id,
                 Title = course.Title,
                 ImagePath = course.ImagePath,

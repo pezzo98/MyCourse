@@ -10,7 +10,7 @@ namespace MyCourse.Controllers
         public IActionResult Index()
         {
             var feature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
-            switch(feature.Error)
+            switch (feature.Error)
             {
                 case CourseNotFoundException exc:
                     ViewData["Title"] = "Corso non trovato";

@@ -1,30 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Informatica\\progetti_personali\\C#\\MyCourse\\MyCourse.csproj": {}
+    "D:\\Informatica\\Corsi\\C#\\MyCourse\\MyCourse.csproj": {}
   },
   "projects": {
-    "D:\\Informatica\\progetti_personali\\C#\\MyCourse\\MyCourse.csproj": {
+    "D:\\Informatica\\Corsi\\C#\\MyCourse\\MyCourse.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Informatica\\progetti_personali\\C#\\MyCourse\\MyCourse.csproj",
+        "projectUniqueName": "D:\\Informatica\\Corsi\\C#\\MyCourse\\MyCourse.csproj",
         "projectName": "MyCourse",
-        "projectPath": "D:\\Informatica\\progetti_personali\\C#\\MyCourse\\MyCourse.csproj",
-        "packagesPath": "C:\\Users\\UTENTE\\.nuget\\packages\\",
-        "outputPath": "D:\\Informatica\\progetti_personali\\C#\\MyCourse\\obj\\",
+        "projectPath": "D:\\Informatica\\Corsi\\C#\\MyCourse\\MyCourse.csproj",
+        "packagesPath": "C:\\Users\\Utente\\.nuget\\packages\\",
+        "outputPath": "D:\\Informatica\\Corsi\\C#\\MyCourse\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\UTENTE\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Utente\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -41,6 +36,18 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
+            "HtmlSanitizer": {
+              "target": "Package",
+              "version": "[4.0.217, )"
+            },
+            "Magick.NET-Q8-AnyCPU": {
+              "target": "Package",
+              "version": "[7.15.4, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
             "Microsoft.Data.SQLite": {
               "target": "Package",
               "version": "[3.0.0, )"
@@ -86,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.411\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.416\\RuntimeIdentifierGraph.json"
         }
       }
     }

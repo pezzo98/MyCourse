@@ -5,7 +5,7 @@ namespace MyCourse.Models.ValueTypes
 {
     //Questa classe serve unicamente per indicare al servizio infrastrutturale SqliteAccessor
     //che un dato parametro non deve essere convertito in SqliteParameter
-    public class Sql 
+    public class Sql
     {
         private Sql(string value)
         {
@@ -16,7 +16,8 @@ namespace MyCourse.Models.ValueTypes
 
         //Conversione da/per il tipo string
         public static explicit operator Sql(string value) => new Sql(value);
-        public override string ToString() {
+        public override string ToString()
+        {
             return this.Value;
         }
     }
