@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using MyCourse.Models.Entities;
 
 namespace MyCourse.Models.Services.Infrastructure
@@ -8,8 +6,7 @@ namespace MyCourse.Models.Services.Infrastructure
     public partial class MyCourseDbContext : DbContext
     {
 
-        public MyCourseDbContext(DbContextOptions<MyCourseDbContext> options)
-            : base(options)
+        public MyCourseDbContext(DbContextOptions<MyCourseDbContext> options) : base(options)
         {
         }
 
@@ -26,15 +23,19 @@ namespace MyCourse.Models.Services.Infrastructure
                 entity.HasKey(course => course.Id); //Superfluo se la proprietà si chiama Id oppure CoursesId
                 //entity.HasKey(course => new { course.Id, course.Author }); //Per chiavi primarie composite (è importante rispettare l'ordine dei campi)
 
+                entity.Property(course => course.RowVersion).IsRowVersion();
+
                 //Mapping per gli owned types
-                entity.OwnsOne(course => course.CurrentPrice, builder => {
+                entity.OwnsOne(course => course.CurrentPrice, builder =>
+                {
                     builder.Property(money => money.Currency)
                     .HasConversion<string>()
                     .HasColumnName("CurrentPrice_Currency"); //Superfluo perché le nostre colonne seguono già la convenzione di nomi
                     builder.Property(money => money.Amount).HasColumnName("CurrentPrice_Amount").HasConversion<float>(); //Superfluo perché le nostre colonne seguono già la convenzione di nomi
                 });
 
-                entity.OwnsOne(course => course.FullPrice, builder => {
+                entity.OwnsOne(course => course.FullPrice, builder =>
+                {
                     builder.Property(money => money.Currency).HasConversion<string>();
                 });
 
