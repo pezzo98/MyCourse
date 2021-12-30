@@ -1,9 +1,11 @@
+using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using ImageMagick;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using MyCourse.Models.Exceptions.Infrastructure;
 
 namespace MyCourse.Models.Services.Infrastructure
 {
@@ -38,21 +40,27 @@ namespace MyCourse.Models.Services.Infrastructure
                 using MagickImage image = new MagickImage(inputStream);
 
                 //Manipolare l'immagine
-                int width = 300;  //Esercizio: ottenere questi valori dalla configurazione
+                int width = 300;
                 int height = 300;
-                MagickGeometry resizeGeometry = new MagickGeometry(width, height)
+                MagickGeometry resizeGeometry = new MagickGeometry(width, height)
                 {
-                    FillArea = true
+                    FillArea = true
                 };
                 image.Resize(resizeGeometry);
-                image.Crop(width, width, Gravity.Northwest);
+                image.Crop(width, width, Gravity.Northwest);
 
                 image.Quality = 70;
                 image.Write(physicalPath, MagickFormat.Jpg);
 
                 //Restituire il percorso al file
                 return path;
-            } finally {
+            }
+            catch (Exception exc)
+            {
+                throw new ImagePersistenceException(exc);
+            }
+            finally
+            {
                 semaphore.Release();
             }
         }

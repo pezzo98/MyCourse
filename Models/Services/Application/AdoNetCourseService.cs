@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
+using ImageMagick;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using MyCourse.Models.Exceptions;
+using MyCourse.Models.Exceptions.Application;
+using MyCourse.Models.Exceptions.Infrastructure;
 using MyCourse.Models.InputModels;
 using MyCourse.Models.Options;
 using MyCourse.Models.Services.Infrastructure;
@@ -20,6 +22,7 @@ namespace MyCourse.Models.Services.Application
         private readonly IDatabaseAccessor db;
         private readonly IOptionsMonitor<CoursesOptions> coursesOptions;
         private readonly IImagePersister imagePersister;
+
         public AdoNetCourseService(ILogger<AdoNetCourseService> logger, IDatabaseAccessor db, IImagePersister imagePersister, IOptionsMonitor<CoursesOptions> coursesOptions)
         {
             this.imagePersister = imagePersister;
@@ -27,6 +30,7 @@ namespace MyCourse.Models.Services.Application
             this.logger = logger;
             this.db = db;
         }
+
         public async Task<CourseDetailViewModel> GetCourseAsync(int id)
         {
             logger.LogInformation("Course {id} requested", id);
@@ -134,10 +138,8 @@ namespace MyCourse.Models.Services.Application
 
             try
             {
-                DataSet dataSet = await db.QueryAsync($@"INSERT INTO Courses (Title, Author, ImagePath, CurrentPrice_Currency, CurrentPrice_Amount, FullPrice_Currency, FullPrice_Amount) VALUES ({title}, {author}, '/Courses/default.png', 'EUR', 0, 'EUR', 0);
-                                                 SELECT last_insert_rowid();");
+                int courseId = await db.QueryScalarAsync<int>($@"INSERT INTO Courses (Title, Author, ImagePath, CurrentPrice_Currency, CurrentPrice_Amount, FullPrice_Currency, FullPrice_Amount) VALUES ({title}, {author}, '/Courses/default.png', 'EUR', 0, 'EUR', 0); SELECT last_insert_rowid();");
 
-                int courseId = Convert.ToInt32(dataSet.Tables[0].Rows[0][0]);
                 CourseDetailViewModel course = await GetCourseAsync(courseId);
                 return course;
             }
@@ -147,45 +149,41 @@ namespace MyCourse.Models.Services.Application
             }
         }
 
+        public async Task<bool> IsTitleAvailableAsync(string title, int id)
+        {
+            bool titleExists = await db.QueryScalarAsync<bool>($"SELECT COUNT(*) FROM Courses WHERE Title LIKE {title} AND id<>{id}");
+
+            return !titleExists;
+        }
+
         public async Task<CourseDetailViewModel> EditCourseAsync(CourseEditInputModel inputModel)
         {
-            DataSet dataSet = await db.QueryAsync($"SELECT COUNT(*) FROM Courses WHERE Id={inputModel.Id}");
-            if (Convert.ToInt32(dataSet.Tables[0].Rows[0][0]) == 0)
-            {
-                throw new CourseNotFoundException(inputModel.Id);
-            }
-
             try
             {
-                dataSet = await db.QueryAsync($"UPDATE Courses SET Title={inputModel.Title}, Description={inputModel.Description}, Email={inputModel.Email}, CurrentPrice_Currency={inputModel.CurrentPrice.Currency}, CurrentPrice_Amount={inputModel.CurrentPrice.Amount}, FullPrice_Currency={inputModel.FullPrice.Currency}, FullPrice_Amount={inputModel.FullPrice.Amount} WHERE Id={inputModel.Id}");
+                string imagePath = null;
+                if (inputModel.Image != null)
+                {
+                    imagePath = await imagePersister.SaveCourseImageAsync(inputModel.Id, inputModel.Image);
+                }
+
+                int affectedRows = await db.CommandAsync($"UPDATE Courses SET ImagePath=COALESCE({imagePath}, ImagePath), Title={inputModel.Title}, Description={inputModel.Description}, Email={inputModel.Email}, CurrentPrice_Currency={inputModel.CurrentPrice.Currency}, CurrentPrice_Amount={inputModel.CurrentPrice.Amount}, FullPrice_Currency={inputModel.FullPrice.Currency}, FullPrice_Amount={inputModel.FullPrice.Amount} WHERE Id={inputModel.Id}");
+
+                if (affectedRows == 0)
+                {
+                    throw new CourseNotFoundException(inputModel.Id);
+                }
             }
-            catch (SqliteException exc) when (exc.SqliteErrorCode == 19)
+            catch (ConstraintViolationException exc)
             {
                 throw new CourseTitleUnavailableException(inputModel.Title, exc);
             }
-
-            if (inputModel.Image != null)
+            catch (ImagePersistenceException exc)
             {
-                try
-                {
-                    string imagePath = await imagePersister.SaveCourseImageAsync(inputModel.Id, inputModel.Image);
-                    dataSet = await db.QueryAsync($"UPDATE Courses SET ImagePath={imagePath} WHERE Id={inputModel.Id}");
-                }
-                catch (Exception exc)
-                {
-                    throw new CourseImageInvalidException(inputModel.Id, exc);
-                }
+                throw new CourseImageInvalidException(inputModel.Id, exc);
             }
 
             CourseDetailViewModel course = await GetCourseAsync(inputModel.Id);
             return course;
-        }
-
-        public async Task<bool> IsTitleAvailableAsync(string title, int id)
-        {
-            DataSet result = await db.QueryAsync($"SELECT COUNT(*) FROM Courses WHERE Title LIKE {title} AND id<>{id}");
-            bool titleAvailable = Convert.ToInt32(result.Tables[0].Rows[0][0]) == 0;
-            return titleAvailable;
         }
     }
 }
