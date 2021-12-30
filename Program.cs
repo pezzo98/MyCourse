@@ -12,7 +12,8 @@ namespace MyCourse
 
         public static IHostBuilder CreateWebHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webHostBuilder => {
+                .ConfigureWebHostDefaults(webHostBuilder =>
+                {
                     webHostBuilder.UseStartup<Startup>();
                 })
 

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using MyCourse.Models.InputModels;
+using MyCourse.Models.InputModels.Courses;
 
 namespace MyCourse.Customizations.TagHelpers
 {
@@ -22,7 +22,7 @@ namespace MyCourse.Customizations.TagHelpers
             RouteValues["search"] = Input.Search;
             RouteValues["orderby"] = OrderBy;
             RouteValues["ascending"] = (Input.OrderBy == OrderBy ? !Input.Ascending : Input.Ascending).ToString().ToLowerInvariant();
-
+            
             //Faccio generare l'output all'AnchorTagHelper
             base.Process(context, output);
 

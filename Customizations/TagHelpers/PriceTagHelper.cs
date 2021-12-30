@@ -13,8 +13,7 @@ namespace MyCourse.Customizations.TagHelpers
             output.TagName = "span";
             output.Content.AppendHtml($"{CurrentPrice}");
 
-            if (!CurrentPrice.Equals(FullPrice))
-            {
+            if(!CurrentPrice.Equals(FullPrice)) {
                 output.Content.AppendHtml($"<br><s>{FullPrice}</s>");
             }
         }

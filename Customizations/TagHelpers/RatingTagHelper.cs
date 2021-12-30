@@ -7,7 +7,9 @@ namespace MyCourse.Customizations.TagHelpers
         public double Value { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            for (int i = 1; i <= 5; i++)
+            //double value = (double) context.AllAttributes["value"].Value;
+
+  		    for(int i = 1; i <= 5; i++)
             {
                 if (Value >= i)
                 {
@@ -21,7 +23,7 @@ namespace MyCourse.Customizations.TagHelpers
                 {
                     output.Content.AppendHtml("<i class=\"far fa-star\"></i>");
                 }
-            }
-        }
+            }          
+		}
     }
 }

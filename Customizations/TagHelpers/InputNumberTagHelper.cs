@@ -25,9 +25,9 @@ namespace MyCourse.Customizations.TagHelpers
             {
                 return;
             }
-            decimal value = (decimal)For.Model;
+            decimal value = (decimal) For.Model;
             string formattedValue = value.ToString("F2", CultureInfo.InvariantCulture);
             output.Attributes.SetAttribute("value", formattedValue);
-        }
+		}
     }
 }
