@@ -12,14 +12,15 @@ using Microsoft.Extensions.Hosting;
 using MyCourse.Customizations.ModelBinders;
 using MyCourse.Models.Enums;
 using MyCourse.Models.Options;
-using MyCourse.Models.Services.Application;
+using MyCourse.Models.Services.Application.Courses;
+using MyCourse.Models.Services.Application.Lessons;
 using MyCourse.Models.Services.Infrastructure;
 
 namespace MyCourse
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration) 
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -31,7 +32,7 @@ namespace MyCourse
         {
             services.AddResponseCaching();
 
-            services.AddMvc(options => 
+            services.AddMvc(options =>
             {
                 var homeProfile = new CacheProfile();
                 //homeProfile.Duration = Configuration.GetValue<int>("ResponseCache:Home:Duration");
@@ -41,32 +42,36 @@ namespace MyCourse
                 options.CacheProfiles.Add("Home", homeProfile);
 
                 options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
-                
+
             }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-            #if DEBUG
+#if DEBUG
             .AddRazorRuntimeCompilation()
-            #endif
+#endif
             ;
 
-            //Usiamo ADO.NET o Entity Framework Core per l'accesso ai dati
-            var persistence = Persistence.EfCore;
+            //Usiamo ADO.NET o Entity Framework Core per l'accesso ai dati?
+            var persistence = Persistence.AdoNet;
             switch (persistence)
             {
                 case Persistence.AdoNet:
                     services.AddTransient<ICourseService, AdoNetCourseService>();
+                    services.AddTransient<ILessonService, AdoNetLessonService>();
                     services.AddTransient<IDatabaseAccessor, SqliteDatabaseAccessor>();
-                break;
+                    break;
 
                 case Persistence.EfCore:
                     services.AddTransient<ICourseService, EfCoreCourseService>();
-                    services.AddDbContextPool<MyCourseDbContext>(optionsBuilder => {
+                    services.AddTransient<ILessonService, EfCoreLessonService>();
+                    services.AddDbContextPool<MyCourseDbContext>(optionsBuilder =>
+                    {
                         string connectionString = Configuration.GetSection("ConnectionStrings").GetValue<string>("Default");
                         optionsBuilder.UseSqlite(connectionString);
-                });
-                break;
+                    });
+                    break;
             }
 
             services.AddTransient<ICachedCourseService, MemoryCacheCourseService>();
+            services.AddTransient<ICachedLessonService, MemoryCacheLessonService>();
             services.AddSingleton<IImagePersister, MagickNetImagePersister>();
 
             //Options
@@ -113,7 +118,8 @@ namespace MyCourse
             app.UseResponseCaching();
 
             //EndpointMiddleware
-            app.UseEndpoints(routeBuilder => {
+            app.UseEndpoints(routeBuilder =>
+            {
                 routeBuilder.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }

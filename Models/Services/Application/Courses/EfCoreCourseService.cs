@@ -7,13 +7,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MyCourse.Models.Entities;
+using MyCourse.Models.Enums;
 using MyCourse.Models.Exceptions.Application;
-using MyCourse.Models.InputModels;
+using MyCourse.Models.InputModels.Courses;
 using MyCourse.Models.Options;
 using MyCourse.Models.Services.Infrastructure;
 using MyCourse.Models.ViewModels;
+using MyCourse.Models.ViewModels.Courses;
 
-namespace MyCourse.Models.Services.Application
+namespace MyCourse.Models.Services.Application.Courses
 {
     public class EfCoreCourseService : ICourseService
     {
@@ -29,7 +31,6 @@ namespace MyCourse.Models.Services.Application
             this.logger = logger;
             this.dbContext = dbContext;
         }
-
         public async Task<CourseDetailViewModel> GetCourseAsync(int id)
         {
             IQueryable<CourseDetailViewModel> queryLinq = dbContext.Courses
@@ -52,7 +53,6 @@ namespace MyCourse.Models.Services.Application
 
             return viewModel;
         }
-
         public async Task<List<CourseViewModel>> GetBestRatingCoursesAsync()
         {
             CourseListInputModel inputModel = new CourseListInputModel(
@@ -66,7 +66,6 @@ namespace MyCourse.Models.Services.Application
             ListViewModel<CourseViewModel> result = await GetCoursesAsync(inputModel);
             return result.Results;
         }
-
         public async Task<List<CourseViewModel>> GetMostRecentCoursesAsync()
         {
             CourseListInputModel inputModel = new CourseListInputModel(
@@ -80,7 +79,6 @@ namespace MyCourse.Models.Services.Application
             ListViewModel<CourseViewModel> result = await GetCoursesAsync(inputModel);
             return result.Results;
         }
-
         public async Task<ListViewModel<CourseViewModel>> GetCoursesAsync(CourseListInputModel model)
         {
             IQueryable<Course> baseQuery = dbContext.Courses;
@@ -118,7 +116,6 @@ namespace MyCourse.Models.Services.Application
 
             return result;
         }
-
         public async Task<CourseDetailViewModel> CreateCourseAsync(CourseCreateInputModel inputModel)
         {
             string title = inputModel.Title;
@@ -137,11 +134,10 @@ namespace MyCourse.Models.Services.Application
 
             return CourseDetailViewModel.FromEntity(course);
         }
-
         public async Task<CourseDetailViewModel> EditCourseAsync(CourseEditInputModel inputModel)
         {
             Course course = await dbContext.Courses.FindAsync(inputModel.Id);
-
+            
             if (course == null)
             {
                 throw new CourseNotFoundException(inputModel.Id);
@@ -153,15 +149,14 @@ namespace MyCourse.Models.Services.Application
             course.ChangeEmail(inputModel.Email);
 
             dbContext.Entry(course).Property(course => course.RowVersion).OriginalValue = inputModel.RowVersion;
-
+            
             if (inputModel.Image != null)
             {
-                try
-                {
+                try {
                     string imagePath = await imagePersister.SaveCourseImageAsync(inputModel.Id, inputModel.Image);
                     course.ChangeImagePath(imagePath);
                 }
-                catch (Exception exc)
+                catch(Exception exc)
                 {
                     throw new CourseImageInvalidException(inputModel.Id, exc);
                 }
@@ -184,7 +179,6 @@ namespace MyCourse.Models.Services.Application
 
             return CourseDetailViewModel.FromEntity(course);
         }
-
         public async Task<bool> IsTitleAvailableAsync(string title, int id)
         {
             //await dbContext.Courses.AnyAsync(course => course.Title == title);
@@ -208,6 +202,19 @@ namespace MyCourse.Models.Services.Application
             }
 
             return viewModel;
+        }
+
+        public async Task DeleteCourseAsync(CourseDeleteInputModel inputModel)
+        {
+            Course course = await dbContext.Courses.FindAsync(inputModel.Id);
+            
+            if (course == null)
+            {
+                throw new CourseNotFoundException(inputModel.Id);
+            }
+
+            course.ChangeStatus(CourseStatus.Deleted);
+            await dbContext.SaveChangesAsync();
         }
     }
 }

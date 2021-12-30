@@ -9,8 +9,8 @@ using MyCourse.Models.Services.Infrastructure;
 namespace MyCourse.Migrations
 {
     [DbContext(typeof(MyCourseDbContext))]
-    [Migration("20211230104915_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20200517152859_TriggersCourseVersion")]
+    partial class TriggersCourseVersion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,6 +48,9 @@ namespace MyCourse.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Title")
+                        .IsUnique();
 
                     b.ToTable("Courses");
                 });
@@ -106,8 +109,8 @@ namespace MyCourse.Migrations
                             b1.Property<int>("CourseId")
                                 .HasColumnType("INTEGER");
 
-                            b1.Property<decimal>("Amount")
-                                .HasColumnType("TEXT");
+                            b1.Property<float>("Amount")
+                                .HasColumnType("REAL");
 
                             b1.Property<string>("Currency")
                                 .IsRequired()
