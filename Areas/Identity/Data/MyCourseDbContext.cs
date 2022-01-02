@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MyCourse.Models.Entities;
 
 namespace Mycourse.Models.Services.Infrastructure
 {
-    public class MyCourseDbContext : IdentityDbContext<IdentityUser>
+    public class MyCourseDbContext : IdentityDbContext<ApplicationUser>
     {
         public MyCourseDbContext(DbContextOptions<MyCourseDbContext> options)
             : base(options)

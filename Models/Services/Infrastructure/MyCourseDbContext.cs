@@ -5,7 +5,7 @@ using MyCourse.Models.Enums;
 
 namespace MyCourse.Models.Services.Infrastructure
 {
-    public partial class MyCourseDbContext : IdentityDbContext
+    public partial class MyCourseDbContext : IdentityDbContext<ApplicationUser>
     {
 
         public MyCourseDbContext(DbContextOptions<MyCourseDbContext> options)

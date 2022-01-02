@@ -9,12 +9,12 @@ namespace MyCourse.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
         public IndexModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -35,7 +35,7 @@ namespace MyCourse.Areas.Identity.Pages.Account.Manage
             public string PhoneNumber { get; set; }
         }
 
-        private async Task LoadAsync(IdentityUser user)
+        private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
@@ -75,9 +75,9 @@ namespace MyCourse.Areas.Identity.Pages.Account.Manage
             }
 
             //TODO: PERSISTERE IL FULLNAME
-            //Passo1: Recuperare l'istanza di IdentityUser (in realtà è stato fatto alla riga 65)
+            //Passo1: Recuperare l'istanza di ApplicationUser (in realtà è stato fatto alla riga 65)
             //Passo2: Modificare la sua proprietà FullName ottenendo il valore dall'input model
-            //Passo3: Persistere l'IdentityUser invocando il metodo UpdateAsync dello user manager
+            //Passo3: Persistere l'ApplicationUser invocando il metodo UpdateAsync dello user manager
             //Passo4: Consultare la proprietà Success dell'IdentityResult perché se è false, visualizza un errore
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
