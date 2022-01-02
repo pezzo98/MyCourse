@@ -10,6 +10,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MyCourse.Customizations.Identity;
 using MyCourse.Customizations.ModelBinders;
 using MyCourse.Models.Enums;
 using MyCourse.Models.Options;
@@ -62,7 +63,13 @@ namespace MyCourse
                     break;
 
                 case Persistence.EfCore:
-                    services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<MyCourseDbContext>();
+                    services.AddDefaultIdentity<IdentityUser>(options =>
+                    {
+                        options.Password.RequiredLength = 8;
+                        options.Password.RequiredUniqueChars = 4;
+                    })
+                    .AddPasswordValidator<CommonPasswordValidator<IdentityUser>>()
+                    .AddEntityFrameworkStores<MyCourseDbContext>();
                     services.AddTransient<ICourseService, EfCoreCourseService>();
                     services.AddTransient<ILessonService, EfCoreLessonService>();
                     services.AddDbContextPool<MyCourseDbContext>(optionsBuilder =>
