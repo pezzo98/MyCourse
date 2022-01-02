@@ -32,6 +32,7 @@ namespace MyCourse
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddResponseCaching();
+            services.AddRazorPages();
 
             services.AddMvc(options =>
             {
@@ -126,6 +127,7 @@ namespace MyCourse
             app.UseEndpoints(routeBuilder =>
             {
                 routeBuilder.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                routeBuilder.MapRazorPages();
             });
         }
     }
