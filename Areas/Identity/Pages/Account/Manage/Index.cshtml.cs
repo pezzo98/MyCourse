@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MyCourse.Models.Entities;
 
 namespace MyCourse.Areas.Identity.Pages.Account.Manage
 {
@@ -32,8 +30,8 @@ namespace MyCourse.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Phone]
-            [Display(Name = "Phone number")]
+            [Phone(ErrorMessage = "Deve essere un numero di telefono valido")]
+            [Display(Name = "Numero di telefono")]
             public string PhoneNumber { get; set; }
         }
 
@@ -55,7 +53,7 @@ namespace MyCourse.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Non è stato possibile trovare il profilo utente con ID '{_userManager.GetUserId(User)}'.");
             }
 
             await LoadAsync(user);
@@ -67,7 +65,7 @@ namespace MyCourse.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Non è stato possibile trovare il profilo utente con ID '{_userManager.GetUserId(User)}'.");
             }
 
             if (!ModelState.IsValid)
@@ -76,19 +74,25 @@ namespace MyCourse.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
+            //TODO: PERSISTERE IL FULLNAME
+            //Passo1: Recuperare l'istanza di IdentityUser (in realtà è stato fatto alla riga 65)
+            //Passo2: Modificare la sua proprietà FullName ottenendo il valore dall'input model
+            //Passo3: Persistere l'IdentityUser invocando il metodo UpdateAsync dello user manager
+            //Passo4: Consultare la proprietà Success dell'IdentityResult perché se è false, visualizza un errore
+
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
+                    StatusMessage = "Si è verificato un errore imprevisto nell'impostare il numero di telefono.";
                     return RedirectToPage();
                 }
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Il tuo profilo è stato aggiornato";
             return RedirectToPage();
         }
     }
