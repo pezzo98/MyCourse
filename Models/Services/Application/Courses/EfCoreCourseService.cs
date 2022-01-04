@@ -15,6 +15,7 @@ using MyCourse.Models.Options;
 using MyCourse.Models.Services.Infrastructure;
 using MyCourse.Models.ViewModels;
 using MyCourse.Models.ViewModels.Courses;
+using System.Security.Claims;
 
 namespace MyCourse.Models.Services.Application.Courses
 {
@@ -127,17 +128,19 @@ namespace MyCourse.Models.Services.Application.Courses
         {
             string title = inputModel.Title;
             string author;
+            string authorId;
 
             try
             {
                 author = httpContextAccessor.HttpContext.User.FindFirst("FullName").Value;
+                authorId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             }
             catch (NullReferenceException)
             {
                 throw new UserUnknownException();
             }
 
-            var course = new Course(title, author);
+            var course = new Course(title, author, authorId);
             dbContext.Add(course);
             try
             {

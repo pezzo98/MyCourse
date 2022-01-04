@@ -7,10 +7,10 @@ namespace MyCourse.Models.Entities
 {
     public partial class Course
     {
-        public Course(string title, string author)
+        public Course(string title, string author, string authorId)
         {
             ChangeTitle(title);
-            ChangeAuthor(author);
+            ChangeAuthor(author, authorId);
             Lessons = new HashSet<Lesson>();
             CurrentPrice = new Money(Currency.EUR, 0);
             FullPrice = new Money(Currency.EUR, 0);
@@ -28,6 +28,8 @@ namespace MyCourse.Models.Entities
         public Money CurrentPrice { get; private set; }
         public string RowVersion { get; private set; }
         public CourseStatus Status { get; private set; }
+        public string AuthorId { get; set; }
+        public virtual ApplicationUser AuthorUser { get; set; }
 
         public void ChangeStatus(CourseStatus status)
         {
@@ -35,7 +37,7 @@ namespace MyCourse.Models.Entities
             Status = status;
         }
 
-        public void ChangeAuthor(string newAuthor)
+        public void ChangeAuthor(string newAuthor, string authorId)
         {
             if (string.IsNullOrWhiteSpace(newAuthor))
             {

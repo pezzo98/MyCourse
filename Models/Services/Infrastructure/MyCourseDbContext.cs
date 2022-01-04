@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using MyCourse.Models.Entities;
 using MyCourse.Models.Enums;
 
@@ -19,7 +21,6 @@ namespace MyCourse.Models.Services.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
 
             modelBuilder.Entity<Course>(entity =>
             {
@@ -32,8 +33,7 @@ namespace MyCourse.Models.Services.Infrastructure
                 entity.Property(course => course.Status).HasConversion<string>();
 
                 //Mapping per gli owned types
-                entity.OwnsOne(course => course.CurrentPrice, builder =>
-                {
+                entity.OwnsOne(course => course.CurrentPrice, builder => {
                     builder.Property(money => money.Currency)
                            .HasConversion<string>()
                            .HasColumnName("CurrentPrice_Currency"); //Superfluo perché le nostre colonne seguono già la convenzione di nomi
@@ -42,8 +42,7 @@ namespace MyCourse.Models.Services.Infrastructure
                            .HasConversion<float>(); //Questo indica al meccanismo delle migration che la colonna della tabella dovrà essere creata di tipo numerico
                 });
 
-                entity.OwnsOne(course => course.FullPrice, builder =>
-                {
+                entity.OwnsOne(course => course.FullPrice, builder => {
                     builder.Property(money => money.Currency)
                            .HasConversion<string>();
                     builder.Property(money => money.Amount)
@@ -51,6 +50,10 @@ namespace MyCourse.Models.Services.Infrastructure
                 });
 
                 //Mapping per le relazioni
+                entity.HasOne(course => course.AuthorUser)
+                      .WithMany(user => user.AuthoredCourses)
+                      .HasForeignKey(course => course.AuthorId);
+                      
                 entity.HasMany(course => course.Lessons)
                       .WithOne(lesson => lesson.Course)
                       .HasForeignKey(lesson => lesson.CourseId); //Superflua se la proprietà si chiama CourseId
