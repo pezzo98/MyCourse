@@ -1,9 +1,11 @@
 ﻿using System;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -47,6 +49,10 @@ namespace MyCourse
 
                 options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
 
+                AuthorizationPolicyBuilder policyBuilder = new();
+                AuthorizationPolicy policy = policyBuilder.RequireAuthenticatedUser().Build();
+                AuthorizeFilter filter = new(policy);
+                options.Filters.Add(filter);
             });
 
             var identityBuilder = services.AddDefaultIdentity<ApplicationUser>(options =>

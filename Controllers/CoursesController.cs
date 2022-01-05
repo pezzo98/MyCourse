@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyCourse.Models.Exceptions.Application;
 using MyCourse.Models.InputModels.Courses;
@@ -11,10 +12,13 @@ namespace MyCourse.Controllers
     public class CoursesController : Controller
     {
         private readonly ICourseService courseService;
+
         public CoursesController(ICachedCourseService courseService)
         {
             this.courseService = courseService;
         }
+
+        [AllowAnonymous]
         public async Task<IActionResult> Index(CourseListInputModel input)
         {
             ViewData["Title"] = "Catalogo dei corsi";
@@ -28,6 +32,7 @@ namespace MyCourse.Controllers
 
             return View(viewModel);
         }
+
         public async Task<IActionResult> Detail(int id)
         {
             CourseDetailViewModel viewModel = await courseService.GetCourseAsync(id);
@@ -63,6 +68,7 @@ namespace MyCourse.Controllers
             return View(inputModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             ViewData["Title"] = "Modifica corso";
