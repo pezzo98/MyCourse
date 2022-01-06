@@ -23,5 +23,6 @@
     <PackageReference Include="HtmlSanitizer" Version="4.0.217" />
     <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="7.15.4" />
     <PackageReference Include="MailKit" Version="2.9.0" />
+    <PackageReference Include="AspNetCore.ReCaptcha" Version="1.2.0" />
   </ItemGroup>
 </Project>

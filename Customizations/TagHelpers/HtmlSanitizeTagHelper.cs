@@ -23,7 +23,7 @@ namespace MyCourse.Customizations.TagHelpers
 
         private static HtmlSanitizer CreateSanitizer()
         {
-            var sanitizer = new HtmlSanitizer();
+            HtmlSanitizer sanitizer = new();
 
             //Tag consentiti
             sanitizer.AllowedTags.Clear();
@@ -49,7 +49,7 @@ namespace MyCourse.Customizations.TagHelpers
 
             return sanitizer;
         }
-        
+
         private static void FilterUrl(object sender, FilterUrlEventArgs filterUrlEventArgs)
         {
             if (!filterUrlEventArgs.OriginalUrl.StartsWith("//www.youtube.com/") && !filterUrlEventArgs.OriginalUrl.StartsWith("https://www.youtube.com/"))
@@ -57,11 +57,12 @@ namespace MyCourse.Customizations.TagHelpers
                 filterUrlEventArgs.SanitizedUrl = null;
             }
         }
-        
+
         private static void ProcessIFrames(object sender, PostProcessNodeEventArgs postProcessNodeEventArgs)
         {
             var iframe = postProcessNodeEventArgs.Node as IHtmlInlineFrameElement;
-            if (iframe == null) {
+            if (iframe == null)
+            {
                 return;
             }
             var container = postProcessNodeEventArgs.Document.CreateElement("span");

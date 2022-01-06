@@ -38,6 +38,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "AspNetCore.ReCaptcha": {
+              "target": "Package",
+              "version": "[1.2.0, )"
+            },
             "HtmlSanitizer": {
               "target": "Package",
               "version": "[4.0.217, )"

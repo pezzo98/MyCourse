@@ -30,6 +30,21 @@
           "lib/netstandard1.0/AngleSharp.dll": {}
         }
       },
+      "AspNetCore.ReCaptcha/1.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Options": "3.1.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/AspNetCore.ReCaptcha.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/AspNetCore.ReCaptcha.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "HtmlSanitizer/4.0.217": {
         "type": "package",
         "dependencies": {
@@ -2114,6 +2129,20 @@
         "lib/portable-windows8+net45+windowsphone8+wpa+monoandroid+monotouch/AngleSharp.xml",
         "lib/sl50/AngleSharp.dll",
         "lib/sl50/AngleSharp.xml"
+      ]
+    },
+    "AspNetCore.ReCaptcha/1.2.0": {
+      "sha512": "7sqTDNrjbOoDjt5O8NXljWG3u0vw7pq39lNgJZSGPTncv20A30eqVSlDJ8/hXtPfgvo5+3MWYs2Dt8+IPw3RBQ==",
+      "type": "package",
+      "path": "aspnetcore.recaptcha/1.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "aspnetcore.recaptcha.1.2.0.nupkg.sha512",
+        "aspnetcore.recaptcha.nuspec",
+        "lib/netcoreapp2.1/AspNetCore.ReCaptcha.dll",
+        "lib/netcoreapp2.1/AspNetCore.ReCaptcha.runtimeconfig.json",
+        "lib/netcoreapp3.1/AspNetCore.ReCaptcha.dll"
       ]
     },
     "HtmlSanitizer/4.0.217": {
@@ -7014,6 +7043,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "AspNetCore.ReCaptcha >= 1.2.0",
       "HtmlSanitizer >= 4.0.217",
       "Magick.NET-Q8-AnyCPU >= 7.15.4",
       "MailKit >= 2.9.0",
@@ -7032,11 +7062,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Informatica\\Corsi\\C#\\MyCourse\\MyCourse.csproj",
+      "projectUniqueName": "d:\\Informatica\\Corsi\\C#\\MyCourse\\MyCourse.csproj",
       "projectName": "MyCourse",
-      "projectPath": "D:\\Informatica\\Corsi\\C#\\MyCourse\\MyCourse.csproj",
+      "projectPath": "d:\\Informatica\\Corsi\\C#\\MyCourse\\MyCourse.csproj",
       "packagesPath": "C:\\Users\\Utente\\.nuget\\packages\\",
-      "outputPath": "D:\\Informatica\\Corsi\\C#\\MyCourse\\obj\\",
+      "outputPath": "d:\\Informatica\\Corsi\\C#\\MyCourse\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Utente\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -7063,6 +7093,10 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
+          "AspNetCore.ReCaptcha": {
+            "target": "Package",
+            "version": "[1.2.0, )"
+          },
           "HtmlSanitizer": {
             "target": "Package",
             "version": "[4.0.217, )"

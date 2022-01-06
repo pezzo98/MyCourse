@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyCourse.Models.Enums;
 using MyCourse.Models.Exceptions.Application;
 using MyCourse.Models.InputModels.Lessons;
 using MyCourse.Models.Services.Application.Lessons;
@@ -7,6 +9,8 @@ using MyCourse.Models.ViewModels.Lessons;
 
 namespace MyCourse.Controllers
 {
+    [Authorize(Roles = nameof(Role.Teacher))]
+    [Authorize(Policy = nameof(Policy.CourseAuthor))]
     public class LessonsController : Controller
     {
         private readonly ICachedLessonService lessonService;
@@ -26,7 +30,7 @@ namespace MyCourse.Controllers
         public IActionResult Create(int id)
         {
             ViewData["Title"] = "Nuova lezione";
-            var inputModel = new LessonCreateInputModel();
+            LessonCreateInputModel inputModel = new();
             inputModel.CourseId = id;
             return View(inputModel);
         }

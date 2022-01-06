@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using MyCourse.Models.InputModels.Courses;
 using MyCourse.Models.ViewModels;
@@ -12,10 +14,13 @@ namespace MyCourse.Models.Services.Application.Courses
     {
         private readonly ICourseService courseService;
         private readonly IMemoryCache memoryCache;
-        public MemoryCacheCourseService(ICourseService courseService, IMemoryCache memoryCache)
+        private readonly IHttpContextAccessor httpContextAccessor;
+
+        public MemoryCacheCourseService(ICourseService courseService, IMemoryCache memoryCache, IHttpContextAccessor httpContextAccessor)
         {
             this.courseService = courseService;
             this.memoryCache = memoryCache;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         public Task<CourseDetailViewModel> GetCourseAsync(int id)
@@ -69,6 +74,8 @@ namespace MyCourse.Models.Services.Application.Courses
 
         public Task<CourseDetailViewModel> CreateCourseAsync(CourseCreateInputModel inputModel)
         {
+            string authorId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            memoryCache.Remove($"CourseCountByAuthorId{authorId}");
             return courseService.CreateCourseAsync(inputModel);
         }
 
@@ -93,6 +100,29 @@ namespace MyCourse.Models.Services.Application.Courses
         {
             await courseService.DeleteCourseAsync(inputModel);
             memoryCache.Remove($"Course{inputModel.Id}");
+        }
+
+        public Task SendQuestionToCourseAuthorAsync(int courseId, string question)
+        {
+            return courseService.SendQuestionToCourseAuthorAsync(courseId, question);
+        }
+
+        public Task<string> GetCourseAuthorIdAsync(int courseId)
+        {
+            return memoryCache.GetOrCreateAsync($"CourseAuthorId{courseId}", cacheEntry => 
+            {
+                cacheEntry.SetAbsoluteExpiration(TimeSpan.FromSeconds(60)); //Esercizio: provate a recuperare il valore 60 usando il servizio di configurazione
+                return courseService.GetCourseAuthorIdAsync(courseId);
+            });
+        }
+
+        public Task<int> GetCourseCountByAuthorIdAsync(string authorId)
+        {
+            return memoryCache.GetOrCreateAsync($"CourseCountByAuthorId{authorId}", cacheEntry => 
+            {
+                cacheEntry.SetAbsoluteExpiration(TimeSpan.FromSeconds(60)); //Esercizio: provate a recuperare il valore 60 usando il servizio di configurazione
+                return courseService.GetCourseCountByAuthorIdAsync(authorId);
+            });
         }
     }
 }

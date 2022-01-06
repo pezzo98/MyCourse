@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using AspNetCore.ReCaptcha;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyCourse.Customizations.Identity;
 using MyCourse.Customizations.ModelBinders;
+using MyCourse.Models.Authorization;
 using MyCourse.Models.Entities;
 using MyCourse.Models.Enums;
 using MyCourse.Models.Options;
@@ -35,15 +37,12 @@ namespace MyCourse
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddReCaptcha(Configuration.GetSection("ReCaptcha"));
             services.AddResponseCaching();
-            services.AddRazorPages(options =>
-            {
-                options.Conventions.AllowAnonymousToPage("/Privacy");
-            });
 
             services.AddMvc(options =>
             {
-                var homeProfile = new CacheProfile();
+                CacheProfile homeProfile = new();
                 //homeProfile.Duration = Configuration.GetValue<int>("ResponseCache:Home:Duration");
                 //homeProfile.Location = Configuration.GetValue<ResponseCacheLocation>("ResponseCache:Home:Location");
                 //homeProfile.VaryByQueryKeys = new string[] { "page" };
@@ -52,10 +51,11 @@ namespace MyCourse
 
                 options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
 
-                AuthorizationPolicyBuilder policyBuilder = new();
-                AuthorizationPolicy policy = policyBuilder.RequireAuthenticatedUser().Build();
-                AuthorizeFilter filter = new(policy);
-                options.Filters.Add(filter);
+            });
+
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AllowAnonymousToPage("/Privacy");
             });
 
             var identityBuilder = services.AddDefaultIdentity<ApplicationUser>(options =>
@@ -77,8 +77,8 @@ namespace MyCourse
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
 
             })
-                .AddClaimsPrincipalFactory<CustomClaimsPrincipalFactory>()
-                .AddPasswordValidator<CommonPasswordValidator<ApplicationUser>>();
+                    .AddClaimsPrincipalFactory<CustomClaimsPrincipalFactory>()
+                    .AddPasswordValidator<CommonPasswordValidator<ApplicationUser>>();
 
             //Usiamo ADO.NET o Entity Framework Core per l'accesso ai dati?
             var persistence = Persistence.AdoNet;
@@ -91,14 +91,18 @@ namespace MyCourse
 
                     //Imposta l'AdoNetUserStore come servizio di persistenza per Identity
                     identityBuilder.AddUserStore<AdoNetUserStore>();
+
                     break;
 
                 case Persistence.EfCore:
+
                     //Imposta il MyCourseDbContext come servizio di persistenza per Identity
                     identityBuilder.AddEntityFrameworkStores<MyCourseDbContext>();
 
                     services.AddTransient<ICourseService, EfCoreCourseService>();
                     services.AddTransient<ILessonService, EfCoreLessonService>();
+
+                    // Usando AddDbContextPool, il DbContext verrà implicitamente registrato con il ciclo di vita Scoped
                     services.AddDbContextPool<MyCourseDbContext>(optionsBuilder =>
                     {
                         string connectionString = Configuration.GetSection("ConnectionStrings").GetValue<string>("Default");
@@ -111,13 +115,34 @@ namespace MyCourse
             services.AddTransient<ICachedLessonService, MemoryCacheLessonService>();
             services.AddSingleton<IImagePersister, MagickNetImagePersister>();
             services.AddSingleton<IEmailSender, MailKitEmailSender>();
+            services.AddSingleton<IEmailClient, MailKitEmailSender>();
 
-            //Options
+            // Uso il ciclo di vita Scoped per registrare questi AuthorizationHandler perché
+            // sfruttano un servizio (il DbContext) registrato con il ciclo di vita Scoped
+            services.AddScoped<IAuthorizationHandler, CourseAuthorRequirementHandler>();
+            services.AddScoped<IAuthorizationHandler, CourseLimitRequirementHandler>();
+
+            // Policies
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(nameof(Policy.CourseAuthor), builder =>
+                {
+                    builder.Requirements.Add(new CourseAuthorRequirement());
+                });
+
+                options.AddPolicy(nameof(Policy.CourseLimit), builder =>
+                {
+                    builder.Requirements.Add(new CourseLimitRequirement(limit: 5));
+                });
+            });
+
+            // Options
             services.Configure<CoursesOptions>(Configuration.GetSection("Courses"));
             services.Configure<ConnectionStringsOptions>(Configuration.GetSection("ConnectionStrings"));
             services.Configure<MemoryCacheOptions>(Configuration.GetSection("MemoryCache"));
             services.Configure<KestrelServerOptions>(Configuration.GetSection("Kestrel"));
             services.Configure<SmtpOptions>(Configuration.GetSection("Smtp"));
+            services.Configure<UsersOptions>(Configuration.GetSection("Users"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -137,7 +162,13 @@ namespace MyCourse
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                // app.UseExceptionHandler("/Error");
+                // Breaking change .NET 5: https://docs.microsoft.com/en-us/dotnet/core/compatibility/aspnet-core/5.0/middleware-exception-handler-throws-original-exception
+                app.UseExceptionHandler(new ExceptionHandlerOptions
+                {
+                    ExceptionHandlingPath = "/Error",
+                    AllowStatusCode404Response = true
+                });
             }
 
             app.UseStaticFiles();
@@ -161,10 +192,9 @@ namespace MyCourse
             //EndpointMiddleware
             app.UseEndpoints(routeBuilder =>
             {
-                routeBuilder.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-                routeBuilder.MapRazorPages();
+                routeBuilder.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}").RequireAuthorization();
+                routeBuilder.MapRazorPages().RequireAuthorization();
             });
-
         }
     }
 }

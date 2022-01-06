@@ -112,7 +112,9 @@ namespace MyCourse.Models.Services.Infrastructure
             return Task.CompletedTask;
         }
 
-        public void Dispose() { }
+        public void Dispose()
+        {
+        }
         #endregion
 
         #region Implementation of IUserClaimStore<ApplicationUser>
@@ -125,7 +127,6 @@ namespace MyCourse.Models.Services.Infrastructure
             )).ToList();
             return claims;
         }
-
         public async Task AddClaimsAsync(ApplicationUser user, IEnumerable<Claim> claims, CancellationToken token)
         {
             foreach (Claim claim in claims)
@@ -158,13 +159,14 @@ namespace MyCourse.Models.Services.Infrastructure
 
         public async Task<IList<ApplicationUser>> GetUsersForClaimAsync(Claim claim, CancellationToken token)
         {
-            DataSet dataSet = await db.QueryAsync($"SELECT * FROM AspNetUserClaims WHERE ClaimType={claim.Type} AND ClaimValue={claim.Value}", token);
+            DataSet dataSet = await db.QueryAsync($"SELECT AspNetUsers.* FROM AspNetUserClaims INNER JOIN AspNetUsers ON AspNetUserClaims.UserId = AspNetUsers.Id WHERE AspNetUserClaims.ClaimType={claim.Type} AND AspNetUserClaims.ClaimValue={claim.Value}", token);
             List<ApplicationUser> users = dataSet.Tables[0].AsEnumerable().Select(row => ApplicationUser.FromDataRow(row)).ToList();
             return users;
         }
         #endregion
 
         #region Implementation of IUserEmailStore<ApplicationUser>
+
         public async Task<ApplicationUser> FindByEmailAsync(string normalizedEmail, CancellationToken token)
         {
             DataSet dataSet = await db.QueryAsync($"SELECT * FROM AspNetUsers WHERE NormalizedEmail={normalizedEmail}", token);
@@ -174,7 +176,6 @@ namespace MyCourse.Models.Services.Infrastructure
             }
             return ApplicationUser.FromDataRow(dataSet.Tables[0].Rows[0]);
         }
-
         public Task SetEmailAsync(ApplicationUser user, string email, CancellationToken token)
         {
             user.Email = email;
@@ -226,6 +227,7 @@ namespace MyCourse.Models.Services.Infrastructure
             bool hasPassword = user.PasswordHash != null;
             return Task.FromResult(hasPassword);
         }
+
         #endregion
 
         #region Implementation of IUserPhoneNumberStore<Application>
@@ -281,6 +283,7 @@ namespace MyCourse.Models.Services.Infrastructure
         const string loginProviderName = "[AspNetUserStore]";
         const string authenticatorKeyTokenName = "AuthenticatorKey";
         const string recoveryCodesTokenName = "RecoveryCodes";
+
 
         #region Implementation of IUserAuthenticatorKeyStore<ApplicationUser>
         public Task SetAuthenticatorKeyAsync(ApplicationUser user, string key, CancellationToken token)
@@ -355,6 +358,7 @@ namespace MyCourse.Models.Services.Infrastructure
         #endregion
 
         #region Implementation of IUserLoginStore<ApplicationUser>
+
         public async Task AddLoginAsync(ApplicationUser user, UserLoginInfo login, CancellationToken token)
         {
             int affectedRows = await db.CommandAsync($"INSERT INTO AspNetUserLogins (UserId, LoginProvider, ProviderKey, ProviderDisplayName) VALUES ({user.Id}, {login.LoginProvider}, {login.ProviderKey}, {login.ProviderDisplayName})", token);
@@ -435,6 +439,7 @@ namespace MyCourse.Models.Services.Infrastructure
             user.LockoutEnabled = enabled;
             return Task.CompletedTask;
         }
+
         #endregion
 
         #region Implementation of IUserConfirmation<ApplicationUser>

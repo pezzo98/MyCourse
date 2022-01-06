@@ -13,7 +13,7 @@ namespace MyCourse.Customizations.Identity
             //Elenco di password comuni
             //TODO: impostare un elenco più significativo, magari ottenuto da:
             //https://github.com/danielmiessler/SecLists/tree/master/Passwords/Common-Credentials
-            this.commons = new [] {
+            this.commons = new[] {
                 "password", "abc", "123", "qwerty"
             };
         }

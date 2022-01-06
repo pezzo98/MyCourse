@@ -17,5 +17,8 @@ namespace MyCourse.Models.Services.Application.Courses
         Task<CourseDetailViewModel> EditCourseAsync(CourseEditInputModel inputModel);
         Task DeleteCourseAsync(CourseDeleteInputModel inputModel);
         Task<bool> IsTitleAvailableAsync(string title, int excludeId);
+        Task<string> GetCourseAuthorIdAsync(int courseId);
+        Task SendQuestionToCourseAuthorAsync(int courseId, string question);
+        Task<int> GetCourseCountByAuthorIdAsync(string authorId);
     }
 }
