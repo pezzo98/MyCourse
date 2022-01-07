@@ -2,19 +2,21 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyCourse.Models.Services.Infrastructure;
 
 namespace MyCourse.Migrations
 {
     [DbContext(typeof(MyCourseDbContext))]
-    partial class MyCourseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210705180430_Subscriptions")]
+    partial class Subscriptions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.13");
+                .HasAnnotation("ProductVersion", "5.0.1");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -319,7 +321,7 @@ namespace MyCourse.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Subscription");
+                    b.ToTable("Subscriptions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -470,7 +472,7 @@ namespace MyCourse.Migrations
 
                             b1.HasKey("SubscriptionCourseId", "SubscriptionUserId");
 
-                            b1.ToTable("Subscription");
+                            b1.ToTable("Subscriptions");
 
                             b1.WithOwner()
                                 .HasForeignKey("SubscriptionCourseId", "SubscriptionUserId");

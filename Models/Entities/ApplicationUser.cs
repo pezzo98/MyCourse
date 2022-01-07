@@ -9,6 +9,7 @@ namespace MyCourse.Models.Entities
     {
         public string FullName { get; set; }
         public virtual ICollection<Course> AuthoredCourses { get; set; }
+        public virtual ICollection<Course> SubscribedCourses { get; set; }
 
         public static ApplicationUser FromDataRow(DataRow userRow)
         {
@@ -26,7 +27,7 @@ namespace MyCourse.Models.Entities
                 PhoneNumber = Convert.ToString(userRow["PhoneNumber"]),
                 PhoneNumberConfirmed = Convert.ToBoolean(userRow["PhoneNumberConfirmed"]),
                 TwoFactorEnabled = Convert.ToBoolean(userRow["TwoFactorEnabled"]),
-                LockoutEnd = (userRow["LockoutEnd"] == DBNull.Value ? (DateTime?) null : Convert.ToDateTime(userRow["LockoutEnd"])),
+                LockoutEnd = (userRow["LockoutEnd"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(userRow["LockoutEnd"])),
                 LockoutEnabled = Convert.ToBoolean(userRow["LockoutEnabled"]),
                 AccessFailedCount = Convert.ToInt32(userRow["AccessFailedCount"]),
                 FullName = Convert.ToString(userRow["FullName"])
