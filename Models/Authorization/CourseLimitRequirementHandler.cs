@@ -17,8 +17,7 @@ namespace MyCourse.Models.Authorization
             this.httpContextAccessor = httpContextAccessor;
         }
 
-        protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context,
-                                                             CourseLimitRequirement requirement)
+        protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, CourseLimitRequirement requirement)
         {
             // 1. Leggere l'id dell'utente dalla sua identità
             string userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);

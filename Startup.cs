@@ -120,6 +120,7 @@ namespace MyCourse
             // Uso il ciclo di vita Scoped per registrare questi AuthorizationHandler perché
             // sfruttano un servizio (il DbContext) registrato con il ciclo di vita Scoped
             services.AddScoped<IAuthorizationHandler, CourseAuthorRequirementHandler>();
+            services.AddScoped<IAuthorizationHandler, CourseSubscriberRequirementHandler>();
             services.AddScoped<IAuthorizationHandler, CourseLimitRequirementHandler>();
 
             // Policies
@@ -128,6 +129,11 @@ namespace MyCourse
                 options.AddPolicy(nameof(Policy.CourseAuthor), builder =>
                 {
                     builder.Requirements.Add(new CourseAuthorRequirement());
+                });
+
+                options.AddPolicy(nameof(Policy.CourseSubscriber), builder =>
+                {
+                    builder.Requirements.Add(new CourseSubscriberRequirement());
                 });
 
                 options.AddPolicy(nameof(Policy.CourseLimit), builder =>
