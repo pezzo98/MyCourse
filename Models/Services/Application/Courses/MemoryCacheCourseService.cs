@@ -25,7 +25,7 @@ namespace MyCourse.Models.Services.Application.Courses
 
         public Task<CourseDetailViewModel> GetCourseAsync(int id)
         {
-            return memoryCache.GetOrCreateAsync($"Course{id}", cacheEntry => 
+            return memoryCache.GetOrCreateAsync($"Course{id}", cacheEntry =>
             {
                 cacheEntry.SetAbsoluteExpiration(TimeSpan.FromSeconds(60)); //Esercizio: provate a recuperare il valore 60 usando il servizio di configurazione
                 return courseService.GetCourseAsync(id);
@@ -34,16 +34,16 @@ namespace MyCourse.Models.Services.Application.Courses
 
         public Task<List<CourseViewModel>> GetBestRatingCoursesAsync()
         {
-            return memoryCache.GetOrCreateAsync($"BestRatingCourses", cacheEntry => 
+            return memoryCache.GetOrCreateAsync($"BestRatingCourses", cacheEntry =>
             {
                 cacheEntry.SetAbsoluteExpiration(TimeSpan.FromSeconds(60));
                 return courseService.GetBestRatingCoursesAsync();
             });
         }
-        
+
         public Task<List<CourseViewModel>> GetMostRecentCoursesAsync()
         {
-            return memoryCache.GetOrCreateAsync($"MostRecentCourses", cacheEntry => 
+            return memoryCache.GetOrCreateAsync($"MostRecentCourses", cacheEntry =>
             {
                 cacheEntry.SetAbsoluteExpiration(TimeSpan.FromSeconds(60));
                 return courseService.GetMostRecentCoursesAsync();
@@ -57,11 +57,11 @@ namespace MyCourse.Models.Services.Application.Courses
             //E inoltre, metto in cache i risultati solo se l'utente non ha cercato nulla.
             //In questo modo riduco drasticamente il consumo di memoria RAM
             bool canCache = model.Page <= 5 && string.IsNullOrEmpty(model.Search);
-            
+
             //Se canCache è true, sfrutto il meccanismo di caching
             if (canCache)
             {
-                return memoryCache.GetOrCreateAsync($"Courses{model.Page}-{model.OrderBy}-{model.Ascending}", cacheEntry => 
+                return memoryCache.GetOrCreateAsync($"Courses{model.Page}-{model.OrderBy}-{model.Ascending}", cacheEntry =>
                 {
                     cacheEntry.SetAbsoluteExpiration(TimeSpan.FromSeconds(60));
                     return courseService.GetCoursesAsync(model);
@@ -109,7 +109,7 @@ namespace MyCourse.Models.Services.Application.Courses
 
         public Task<string> GetCourseAuthorIdAsync(int courseId)
         {
-            return memoryCache.GetOrCreateAsync($"CourseAuthorId{courseId}", cacheEntry => 
+            return memoryCache.GetOrCreateAsync($"CourseAuthorId{courseId}", cacheEntry =>
             {
                 cacheEntry.SetAbsoluteExpiration(TimeSpan.FromSeconds(60)); //Esercizio: provate a recuperare il valore 60 usando il servizio di configurazione
                 return courseService.GetCourseAuthorIdAsync(courseId);
@@ -118,11 +118,21 @@ namespace MyCourse.Models.Services.Application.Courses
 
         public Task<int> GetCourseCountByAuthorIdAsync(string authorId)
         {
-            return memoryCache.GetOrCreateAsync($"CourseCountByAuthorId{authorId}", cacheEntry => 
+            return memoryCache.GetOrCreateAsync($"CourseCountByAuthorId{authorId}", cacheEntry =>
             {
                 cacheEntry.SetAbsoluteExpiration(TimeSpan.FromSeconds(60)); //Esercizio: provate a recuperare il valore 60 usando il servizio di configurazione
                 return courseService.GetCourseCountByAuthorIdAsync(authorId);
             });
+        }
+
+        public Task SubscribeCourseAsync(CourseSubscribeInputModel inputModel)
+        {
+            return courseService.SubscribeCourseAsync(inputModel);
+        }
+
+        public Task<bool> IsCourseSubscribedAsync(int courseId, string userId)
+        {
+            return courseService.IsCourseSubscribedAsync(courseId, userId);
         }
     }
 }

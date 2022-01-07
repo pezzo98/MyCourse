@@ -114,8 +114,8 @@ namespace MyCourse.Models.Services.Application.Courses
             List<CourseViewModel> courses = await queryLinq
                 .Skip(model.Offset)
                 .Take(model.Limit)
-                .Select(course => CourseViewModel.FromEntity(course)) //Usando metodi statici come FromEntity, la query potrebbe essere inefficiente. Mantenere il mapping nella lambda oppure usare un extension method personalizzato
-                .ToListAsync(); //La query al database viene inviata qui, quando manifestiamo l'intenzione di voler leggere i risultati
+                .Select(course => CourseViewModel.FromEntity(course))
+                .ToListAsync();
 
             int totalCount = await queryLinq.CountAsync();
 
@@ -187,8 +187,6 @@ namespace MyCourse.Models.Services.Application.Courses
                 }
             }
 
-            //dbContext.Update(course);
-
             try
             {
                 await dbContext.SaveChangesAsync();
@@ -217,7 +215,7 @@ namespace MyCourse.Models.Services.Application.Courses
             IQueryable<CourseEditInputModel> queryLinq = dbContext.Courses
                 .AsNoTracking()
                 .Where(course => course.Id == id)
-                .Select(course => CourseEditInputModel.FromEntity(course)); //Usando metodi statici come FromEntity, la query potrebbe essere inefficiente. Mantenere il mapping nella lambda oppure usare un extension method personalizzato
+                .Select(course => CourseEditInputModel.FromEntity(course));
 
             CourseEditInputModel viewModel = await queryLinq.FirstOrDefaultAsync();
 
@@ -296,17 +294,38 @@ namespace MyCourse.Models.Services.Application.Courses
 
         public Task<string> GetCourseAuthorIdAsync(int courseId)
         {
-            return dbContext.Courses
-                            .Where(course => course.Id == courseId)
-                            .Select(course => course.AuthorId)
-                            .FirstOrDefaultAsync();
+            return dbContext.Courses.Where(course => course.Id == courseId).Select(course => course.AuthorId).FirstOrDefaultAsync();
         }
 
         public Task<int> GetCourseCountByAuthorIdAsync(string authorId)
         {
-            return dbContext.Courses
-                            .Where(course => course.AuthorId == authorId)
-                            .CountAsync();
+            return dbContext.Courses.Where(course => course.AuthorId == authorId).CountAsync();
+        }
+
+        public async Task SubscribeCourseAsync(CourseSubscribeInputModel inputModel)
+        {
+            Subscription subscription = new(inputModel.UserId, inputModel.CourseId)
+            {
+                PaymentDate = inputModel.PaymentDate,
+                PaymentType = inputModel.PaymentType,
+                Paid = inputModel.Paid,
+                TransactionId = inputModel.TransactionId
+            };
+
+            dbContext.Subscriptions.Add(subscription);
+            try
+            {
+                await dbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                throw new CourseSubscriptionException(inputModel.CourseId);
+            }
+        }
+
+        public Task<bool> IsCourseSubscribedAsync(int courseId, string userId)
+        {
+            return dbContext.Subscriptions.Where(subscription => subscription.CourseId == courseId && subscription.UserId == userId).AnyAsync();
         }
     }
 }
