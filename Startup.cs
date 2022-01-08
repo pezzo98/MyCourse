@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -33,10 +32,12 @@ namespace MyCourse
         }
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // Servizi di pagamento: Paypal o Stripe?
+            // services.AddTransient<IPaymentGateway, PaypalPaymentGateway>();
+            // services.AddTransient<IPaymentGateway, StripePaymentGateway>();
+
             services.AddReCaptcha(Configuration.GetSection("ReCaptcha"));
             services.AddResponseCaching();
 
@@ -106,7 +107,12 @@ namespace MyCourse
                     services.AddDbContextPool<MyCourseDbContext>(optionsBuilder =>
                     {
                         string connectionString = Configuration.GetSection("ConnectionStrings").GetValue<string>("Default");
-                        optionsBuilder.UseSqlite(connectionString);
+                        optionsBuilder.UseSqlite(connectionString, options =>
+                        {
+                            // Abilito il connection resiliency (tuttavia non è supportato dal provider di Sqlite perché non è soggetto a errori transienti)
+                            // Info su: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency
+                            // options.EnableRetryOnFailure(3);
+                        });
                     });
                     break;
             }
@@ -116,6 +122,8 @@ namespace MyCourse
             services.AddSingleton<IImagePersister, MagickNetImagePersister>();
             services.AddSingleton<IEmailSender, MailKitEmailSender>();
             services.AddSingleton<IEmailClient, MailKitEmailSender>();
+            services.AddSingleton<IAuthorizationPolicyProvider, MultiAuthorizationPolicyProvider>();
+            // services.AddSingleton<ITransactionLogger, LocalTransactionLogger>();
 
             // Uso il ciclo di vita Scoped per registrare questi AuthorizationHandler perché
             // sfruttano un servizio (il DbContext) registrato con il ciclo di vita Scoped
@@ -149,6 +157,8 @@ namespace MyCourse
             services.Configure<KestrelServerOptions>(Configuration.GetSection("Kestrel"));
             services.Configure<SmtpOptions>(Configuration.GetSection("Smtp"));
             services.Configure<UsersOptions>(Configuration.GetSection("Users"));
+            services.Configure<PaypalOptions>(Configuration.GetSection("Paypal"));
+            // services.Configure<StripeOptions>(Configuration.GetSection("Stripe"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
