@@ -36,7 +36,7 @@ namespace MyCourse
         {
             // Servizi di pagamento: Paypal o Stripe?
             // services.AddTransient<IPaymentGateway, PaypalPaymentGateway>();
-            // services.AddTransient<IPaymentGateway, StripePaymentGateway>();
+            services.AddTransient<IPaymentGateway, StripePaymentGateway>();
 
             services.AddReCaptcha(Configuration.GetSection("ReCaptcha"));
             services.AddResponseCaching();
@@ -123,7 +123,7 @@ namespace MyCourse
             services.AddSingleton<IEmailSender, MailKitEmailSender>();
             services.AddSingleton<IEmailClient, MailKitEmailSender>();
             services.AddSingleton<IAuthorizationPolicyProvider, MultiAuthorizationPolicyProvider>();
-            // services.AddSingleton<ITransactionLogger, LocalTransactionLogger>();
+            services.AddSingleton<ITransactionLogger, LocalTransactionLogger>();
 
             // Uso il ciclo di vita Scoped per registrare questi AuthorizationHandler perché
             // sfruttano un servizio (il DbContext) registrato con il ciclo di vita Scoped
@@ -158,7 +158,7 @@ namespace MyCourse
             services.Configure<SmtpOptions>(Configuration.GetSection("Smtp"));
             services.Configure<UsersOptions>(Configuration.GetSection("Users"));
             services.Configure<PaypalOptions>(Configuration.GetSection("Paypal"));
-            // services.Configure<StripeOptions>(Configuration.GetSection("Stripe"));
+            services.Configure<StripeOptions>(Configuration.GetSection("Stripe"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

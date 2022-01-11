@@ -83,6 +83,18 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[5.0.2, )"
+            },
+            "PayPalCheckoutSdk": {
+              "target": "Package",
+              "version": "[1.0.3, )"
+            },
+            "PayPalHttp": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
+            "Stripe.net": {
+              "target": "Package",
+              "version": "[39.66.0, )"
             }
           },
           "imports": [
