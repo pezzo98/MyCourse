@@ -17,14 +17,14 @@
           "C:\\Users\\Utente\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "net6.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -35,12 +35,12 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
             "AspNetCore.ReCaptcha": {
               "target": "Package",
-              "version": "[1.2.0, )"
+              "version": "[1.4.0, )"
             },
             "HtmlSanitizer": {
               "target": "Package",
@@ -56,45 +56,45 @@
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.13, )"
+              "version": "[6.0.1, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[5.0.13, )"
+              "version": "[6.0.1, )"
             },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
-              "version": "[5.0.13, )"
+              "version": "[6.0.1, )"
             },
             "Microsoft.Data.SQLite": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[6.0.1, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[6.0.1, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[5.0.13, )"
+              "version": "[6.0.1, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[6.0.1, )"
             },
             "PayPalCheckoutSdk": {
               "target": "Package",
-              "version": "[1.0.3, )"
+              "version": "[1.0.4, )"
             },
             "PayPalHttp": {
               "target": "Package",
-              "version": "[1.0.0, )"
+              "version": "[1.0.1, )"
             },
             "Stripe.net": {
               "target": "Package",
-              "version": "[39.66.0, )"
+              "version": "[39.85.0, )"
             }
           },
           "imports": [
@@ -115,7 +115,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
