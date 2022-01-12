@@ -21,7 +21,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.1" />
-    <PackageReference Include="HtmlSanitizer" Version="4.0.217" />
+    <PackageReference Include="HtmlSanitizer" Version="7.0.473" />
     <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="7.15.4" />
     <PackageReference Include="MailKit" Version="2.9.0" />
     <PackageReference Include="PayPalCheckoutSdk" Version="1.0.4" />

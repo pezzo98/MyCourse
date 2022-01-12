@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using AngleSharp.Dom.Html;
+using AngleSharp.Html.Dom;
 using Ganss.XSS;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 

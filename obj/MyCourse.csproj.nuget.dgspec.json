@@ -44,7 +44,7 @@
             },
             "HtmlSanitizer": {
               "target": "Package",
-              "version": "[4.0.217, )"
+              "version": "[7.0.473, )"
             },
             "Magick.NET-Q8-AnyCPU": {
               "target": "Package",
