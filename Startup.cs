@@ -44,9 +44,6 @@ namespace MyCourse
             services.AddMvc(options =>
             {
                 CacheProfile homeProfile = new();
-                //homeProfile.Duration = Configuration.GetValue<int>("ResponseCache:Home:Duration");
-                //homeProfile.Location = Configuration.GetValue<ResponseCacheLocation>("ResponseCache:Home:Location");
-                //homeProfile.VaryByQueryKeys = new string[] { "page" };
                 Configuration.Bind("ResponseCache:Home", homeProfile);
                 options.CacheProfiles.Add("Home", homeProfile);
 
@@ -162,13 +159,14 @@ namespace MyCourse
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
+        public void Configure(WebApplication app)
         {
+            IWebHostEnvironment env = app.Environment;
+            IHostApplicationLifetime lifetime = app.Lifetime;
+
             //if (env.IsDevelopment())
             if (env.IsEnvironment("Development"))
             {
-                app.UseDeveloperExceptionPage();
-
                 //Aggiorniamo un file per notificare al BrowserSync che deve aggiornare la pagina
                 lifetime.ApplicationStarted.Register(() =>
                 {
@@ -178,8 +176,6 @@ namespace MyCourse
             }
             else
             {
-                // app.UseExceptionHandler("/Error");
-                // Breaking change .NET 5: https://docs.microsoft.com/en-us/dotnet/core/compatibility/aspnet-core/5.0/middleware-exception-handler-throws-original-exception
                 app.UseExceptionHandler(new ExceptionHandlerOptions
                 {
                     ExceptionHandlingPath = "/Error",
@@ -188,14 +184,6 @@ namespace MyCourse
             }
 
             app.UseStaticFiles();
-
-            //Nel caso volessi impostare una Culture specifica...
-            /*var appCulture = CultureInfo.InvariantCulture;
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture(appCulture),
-                SupportedCultures = new[] { appCulture }
-            });*/
 
             //EndpointRoutingMiddleware
             app.UseRouting();
@@ -206,11 +194,10 @@ namespace MyCourse
             app.UseResponseCaching();
 
             //EndpointMiddleware
-            app.UseEndpoints(routeBuilder =>
-            {
-                routeBuilder.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}").RequireAuthorization();
-                routeBuilder.MapRazorPages().RequireAuthorization();
-            });
+            app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}")
+               .RequireAuthorization();
+            app.MapRazorPages()
+               .RequireAuthorization();
         }
     }
 }
