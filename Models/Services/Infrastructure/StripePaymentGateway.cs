@@ -29,10 +29,16 @@ namespace MyCourse.Models.Services.Infrastructure
                 {
                     new SessionLineItemOptions()
                     {
-                        Name = inputModel.Description,
-                        Amount = Convert.ToInt64(inputModel.Price.Amount * 100),
-                        Currency = inputModel.Price.Currency.ToString(),
-                        Quantity = 1
+                        // Name = inputModel.Description,
+                        // Amount = Convert.ToInt64(inputModel.Price.Amount * 100),
+                        // Currency = inputModel.Price.Currency.ToString(),
+                        Quantity = 1,
+                        // PriceData = new SessionLineItemPriceDataOptions() {
+                        //         UnitAmountDecimal = inputModel.Price.Amount,
+                        //         Currency = inputModel.Price.Currency.ToString(),
+                        //         Product = inputModel.Description
+                        //     },
+                        // Price = Convert.ToString(inputModel.Price.Amount * 100)
                     }
                 },
                 Mode = "payment",

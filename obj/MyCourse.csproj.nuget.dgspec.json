@@ -40,11 +40,11 @@
           "dependencies": {
             "AspNetCore.ReCaptcha": {
               "target": "Package",
-              "version": "[1.4.0, )"
+              "version": "[1.6.0, )"
             },
             "HtmlSanitizer": {
               "target": "Package",
-              "version": "[7.0.473, )"
+              "version": "[8.0.601, )"
             },
             "Magick.NET-Q8-AnyCPU": {
               "target": "Package",
@@ -52,37 +52,37 @@
             },
             "MailKit": {
               "target": "Package",
-              "version": "[2.9.0, )"
+              "version": "[3.4.2, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[6.0.11, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[6.0.11, )"
             },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[6.0.11, )"
             },
             "Microsoft.Data.SQLite": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[6.0.10, )"
             },
             "PayPalCheckoutSdk": {
               "target": "Package",
@@ -94,7 +94,7 @@
             },
             "Stripe.net": {
               "target": "Package",
-              "version": "[39.85.0, )"
+              "version": "[41.1.0, )"
             }
           },
           "imports": [
@@ -115,7 +115,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.111\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -16,7 +16,7 @@ using MyCourse.Models.ValueTypes;
 using MyCourse.Models.ViewModels;
 using MyCourse.Models.ViewModels.Courses;
 using MyCourse.Models.ViewModels.Lessons;
-using Ganss.XSS;
+using Ganss.Xss;
 using Microsoft.AspNetCore.Routing;
 using MyCourse.Controllers;
 
@@ -267,7 +267,7 @@ namespace MyCourse.Models.Services.Application.Courses
             }
 
             // Sanitizzo la domanda dell'utente
-            question = new HtmlSanitizer(allowedTags: new string[0]).Sanitize(question);
+            question = new HtmlSanitizer(new HtmlSanitizerOptions { AllowedTags = new HashSet<string> { } }).Sanitize(question);
 
             // Compongo il testo della domanda
             string subject = $@"Domanda per il tuo corso ""{courseTitle}""";

@@ -18,7 +18,7 @@ using MyCourse.Models.Services.Infrastructure;
 using MyCourse.Models.ViewModels;
 using MyCourse.Models.ViewModels.Courses;
 using MyCourse.Controllers;
-using Ganss.XSS;
+using Ganss.Xss;
 
 namespace MyCourse.Models.Services.Application.Courses
 {
@@ -261,7 +261,9 @@ namespace MyCourse.Models.Services.Application.Courses
         public async Task SendQuestionToCourseAuthorAsync(int courseId, string question)
         {
             // Sanitizzo l'input dell'utente
-            question = new HtmlSanitizer(allowedTags: new string[0]).Sanitize(question);
+            // question = new HtmlSanitizer(allowedTags: new string[0]).Sanitize(question);
+            var c1 = new string[0];
+            question = new HtmlSanitizer(new HtmlSanitizerOptions { AllowedTags = new HashSet<string> { "a" } }).Sanitize(question);
 
             // Recupero le informazioni del corso
             Course course = await dbContext.Courses.FindAsync(courseId);
@@ -290,7 +292,7 @@ namespace MyCourse.Models.Services.Application.Courses
             }
 
             // Sanitizzo la domanda dell'utente
-            question = new HtmlSanitizer(allowedTags: new string[0]).Sanitize(question);
+            question = new HtmlSanitizer(new HtmlSanitizerOptions { AllowedTags = new HashSet<string> { } }).Sanitize(question);
 
             // Compongo il testo della domanda
             string subject = $@"Domanda per il tuo corso ""{courseTitle}""";
