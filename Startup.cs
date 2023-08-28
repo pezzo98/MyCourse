@@ -35,8 +35,8 @@ namespace MyCourse
         public void ConfigureServices(IServiceCollection services)
         {
             // Servizi di pagamento: Paypal o Stripe?
-            // services.AddTransient<IPaymentGateway, PaypalPaymentGateway>();
-            services.AddTransient<IPaymentGateway, StripePaymentGateway>();
+            services.AddTransient<IPaymentGateway, PaypalPaymentGateway>();
+            // services.AddTransient<IPaymentGateway, StripePaymentGateway>();
 
             services.AddReCaptcha(Configuration.GetSection("ReCaptcha"));
             services.AddResponseCaching();
