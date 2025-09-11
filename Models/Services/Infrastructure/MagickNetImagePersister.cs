@@ -40,14 +40,14 @@ namespace MyCourse.Models.Services.Infrastructure
                 using MagickImage image = new(inputStream);
 
                 //Manipolare l'immagine
-                int width = 300;  //Esercizio: ottenere questi valori dalla configurazione
-                int height = 300;
-                MagickGeometry resizeGeometry = new(width, height)
+                uint width = 300;  //Esercizio: ottenere questi valori dalla configurazione
+                uint height = 300;
+                MagickGeometry resizeGeometry = new(width, height)
                 {
-                    FillArea = true
+                    FillArea = true
                 };
                 image.Resize(resizeGeometry);
-                image.Crop(width, width, Gravity.Northwest);
+                image.Crop(width, width, Gravity.Northwest);
 
                 image.Quality = 70;
                 image.Write(physicalPath, MagickFormat.Jpg);

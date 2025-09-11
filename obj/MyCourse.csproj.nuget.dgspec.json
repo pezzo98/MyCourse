@@ -17,14 +17,16 @@
           "C:\\Users\\Utente\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net8.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.devexpress.com/kkrERiDZG8CotRXiTlEAgfkKw6L7eTkYJltcscgwXl9DHx2xOl/api/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -32,57 +34,66 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
             "AspNetCore.ReCaptcha": {
               "target": "Package",
-              "version": "[1.6.0, )"
+              "version": "[1.8.2, )"
             },
             "HtmlSanitizer": {
               "target": "Package",
-              "version": "[8.0.601, )"
+              "version": "[9.0.886, )"
             },
             "Magick.NET-Q8-AnyCPU": {
               "target": "Package",
-              "version": "[7.15.4, )"
+              "version": "[14.8.2, )"
             },
             "MailKit": {
               "target": "Package",
-              "version": "[3.4.2, )"
+              "version": "[4.13.0, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.11, )"
+              "version": "[8.0.20, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[6.0.11, )"
+              "version": "[8.0.20, )"
             },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
-              "version": "[6.0.11, )"
+              "version": "[8.0.20, )"
             },
             "Microsoft.Data.SQLite": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[9.0.0, )"
+            },
+            "NWebsec.AspNetCore.Core": {
+              "target": "Package",
+              "version": "[3.0.1, )"
             },
             "PayPalCheckoutSdk": {
               "target": "Package",
@@ -94,7 +105,7 @@
             },
             "Stripe.net": {
               "target": "Package",
-              "version": "[41.1.0, )"
+              "version": "[48.5.0, )"
             }
           },
           "imports": [
@@ -103,7 +114,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -115,7 +127,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.111\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
