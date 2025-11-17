@@ -383,7 +383,7 @@ namespace MyCourse.Models.Services.Infrastructure
             List<UserLoginInfo> userLogins = dataSet.Tables[0].AsEnumerable().Select(row => new UserLoginInfo(
                 providerKey: Convert.ToString(row["ProviderKey"]),
                 loginProvider: Convert.ToString(row["LoginProvider"]),
-                displayName: Convert.ToString(row["ProviderDisplayName"])
+                providerDisplayName: Convert.ToString(row["ProviderDisplayName"])
             )).ToList();
             return userLogins;
         }
